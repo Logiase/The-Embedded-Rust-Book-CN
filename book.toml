@@ -1,0 +1,6 @@
+[book]
+authors = ["Logiase"]
+language = "en"
+multilingual = false
+src = "src"
+title = "嵌入式Rust之书"
