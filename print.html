@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>嵌入式Rust之书</title>
+        
+        <meta name="robots" content="noindex" />
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">嵌入式Rust之书</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#译者序" id="译者序">译者序</a></h1>
+<p>本书为作者抽空翻译,可能有语义不通顺,如有不明白的地方也请参考<a href="https://rust-embedded.github.io/book/#introduction">英文原版</a></p>
+<p>如果有勘误, 欢迎提出你的想法</p>
+<p><del>同时也复习考研英语</del></p>
+<h1><a class="header" href="#引言" id="引言">引言</a></h1>
+<p>欢迎阅读嵌入式Rust之书, 本书是使用Rust在如微控制器(MCU)的&quot;裸金属&quot;嵌入式系统上编程的引导</p>
+<h2><a class="header" href="#谁应使用rust进行嵌入式开发" id="谁应使用rust进行嵌入式开发">谁应使用Rust进行嵌入式开发</a></h2>
+<p>嵌入式Rust为任何想要在嵌入式系统上享受Rust提供的高级功能及安全性的人所提供.
+(也可以看看<a href="https://doc.rust-lang.org/book/ch00-00-introduction.html">Who Rust Is For</a>)</p>
+<h2><a class="header" href="#概览" id="概览">概览</a></h2>
+<p>这本书的目标是:</p>
+<ul>
+<li>
+<p>让开发者开苏上手Rust嵌入式开发. 例如, 如何建立开发环境</p>
+</li>
+<li>
+<p>分享<em>当前</em>使用Rust进行嵌入式开发的最佳实践. 例如, 如何最好地使用Rust编写更加正确的嵌入式应用</p>
+</li>
+<li>
+<p>在某些情况下提供一个开发指南. 例如, 如何在一个项目中混用C与Rust</p>
+</li>
+</ul>
+<p>本书试着尽可能涵盖各种体系, 但是为了让读者与作者~~还有翻译~~更轻松, 在所有实例中都是用ARM Cortex-M架构. 
+但是, 本书并不建立在读者熟悉该架构的基础上, 会在需要的地方解释架构的细节. </p>
+<h2><a class="header" href="#这本书适合谁" id="这本书适合谁">这本书适合谁</a></h2>
+<p>本书面向具有一定嵌入式背景或者对Rust熟悉的人, 但是我们相信每个对嵌入式Rust编程感兴趣的人都可以从本书中学到东西. 
+对于那些没有任何经验知识的人, 建议您阅读 &quot;先决条件&quot; 部分并且补全缺少的知识, 以便从书中获得更多知识并且提升阅读体验. 
+你可以查看 &quot;其他资源&quot; 部分来查找你想获得的知识对应资源.</p>
+<h3><a class="header" href="#先决条件" id="先决条件">先决条件</a></h3>
+<ul>
+<li>
+<p>你对使用Rust很熟悉, 并且在桌面环境Rust程序写过, 跑过, 捉过虫. 
+对Rust2018版本熟悉, 应为本书使用Rust 2018</p>
+</li>
+<li>
+<p>熟悉使用其他语言, 如C, C++, Ada开发调试嵌入式系统, 熟悉如以下概念: </p>
+<ul>
+<li>交叉编译</li>
+<li>内存映射外设</li>
+<li>中断</li>
+<li>通用接口, 如I2C, SPI, 串口等</li>
+</ul>
+</li>
+</ul>
+<h3><a class="header" href="#其他资源" id="其他资源">其他资源</a></h3>
+<p>如果你对上面提到的东西不熟, 或者你想对本书提到的一个概念有更加深刻的了解, 你可以看看下面这些资源, 会很有用.</p>
+<table><thead><tr><th>Topic</th><th>Resource</th><th>Description</th></tr></thead><tbody>
+<tr><td>Rust</td><td><a href="https://doc.rust-lang.org/book/">Rust Book</a></td><td>If you are not yet comfortable with Rust, we highly suggest reading this book.</td></tr>
+<tr><td>Rust, Embedded</td><td><a href="https://docs.rust-embedded.org/discovery/">Discovery Book</a></td><td>If you have never done any embedded programming, this book might be a better start</td></tr>
+<tr><td>Rust, Embedded</td><td><a href="https://docs.rust-embedded.org">Embedded Rust Bookshelf</a></td><td>Here you can find several other resources provided by Rust's Embedded Working Group.</td></tr>
+<tr><td>Rust, Embedded</td><td><a href="https://docs.rust-embedded.org/embedonomicon/">Embedonomicon</a></td><td>The nitty gritty details when doing embedded programming in Rust.</td></tr>
+<tr><td>Rust, Embedded</td><td><a href="https://docs.rust-embedded.org/faq.html">embedded FAQ</a></td><td>Frequently asked questions about Rust in an embedded context.</td></tr>
+<tr><td>Interrupts</td><td><a href="https://en.wikipedia.org/wiki/Interrupt">Interrupt</a></td><td>-</td></tr>
+<tr><td>Memory-mapped IO/Peripherals</td><td><a href="https://en.wikipedia.org/wiki/Memory-mapped_I/O">Memory-mapped I/O</a></td><td>-</td></tr>
+<tr><td>SPI, UART, RS232, USB, I2C, TTL</td><td><a href="https://electronics.stackexchange.com/questions/37814/usart-uart-rs232-usb-spi-i2c-ttl-etc-what-are-all-of-these-and-how-do-th">Stack Exchange about SPI, UART, and other interfaces</a></td><td>-</td></tr>
+</tbody></table>
+<h2><a class="header" href="#怎么看这本书" id="怎么看这本书">怎么看这本书</a></h2>
+<p>这本书默认你从头看到尾. 后面的章节建立在前面的基础上, 并且前面的章节不会深挖某个细节部分, 在后面会重新探讨这个问题</p>
+<p>这本书使用ST公司的<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a>开发板作为例子. 
+这个开发板时ARM Cortex-M架构, 尽管基于该架构的大多数CPU的基本功能都是相似的, 但是不同供应商之间的MCU的外设与其他市县细节是不同的, 并且同意供应商之间的MCU也往往有所不同.</p>
+<p>出于这个原因, 我们建议你买一块<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a>开发板来跟着学习本书中的例子.</p>
+<h2><a class="header" href="#为本书做贡献" id="为本书做贡献">为本书做贡献</a></h2>
+<p>本书在<a href="https://github.com/rust-embedded/book">this repository</a>一起编写并且主要由<a href="https://github.com/rust-embedded/wg#the-resources-team">resources team</a>编写</p>
+<p>如果你跟不住本书或是发现本书中某些部分不够清晰明白或者很难学习, 拿着就是一个BUG并且应该在<a href="https://github.com/rust-embedded/book/issues/">the issue tracker</a>被汇报</p>
+<p>欢迎修改文字错误或是增加内容</p>
+<h2><a class="header" href="#中文翻译" id="中文翻译">中文翻译</a></h2>
+<p>本书<a href="https://github.com/Logiase/The-Embedded-Rust-Book-CN">仓库</a></p>
+<p>时刻欢迎批评与建议</p>
+<h2><a class="header" href="#重用本书资源" id="重用本书资源">重用本书资源</a></h2>
+<p>本书在以下LICENSES下发布</p>
+<ul>
+<li>
+<p>代码示例与Cargo项目均在<a href="https://opensource.org/licenses/MIT">MIT License</a>与<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>下发布</p>
+</li>
+<li>
+<p>本书的文字内容, 图片与图标均根据<a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">CC-BY-SA v4.0</a>条款获得许可</p>
+</li>
+</ul>
+<p>太长别看系列: 如果你想在你的作品中使用我们的文字或图片, 你应该:</p>
+<ul>
+<li>加个提醒, 像是提一下本书, 再加个链接</li>
+<li>提供<a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">CC-BY-SA v4.0</a>的链接</li>
+<li>说明你是否对内容进行了修改, 并且用相同的协议对进行更改</li>
+</ul>
+<p>另外请一定让我们知道这本书帮了你 :gift:</p>
+<h1><a class="header" href="#硬件" id="硬件">硬件</a></h1>
+<p>先让我们熟悉一下陪我们的开发板</p>
+<h2><a class="header" href="#stm32f3discovery-f3" id="stm32f3discovery-f3">STM32F3DISCOVERY (&quot;F3&quot;)</a></h2>
+<p align="center">
+<img title="F3" src="intro/../assets/f3.jpg">
+</p>
+<p>这块板子上都有什么?</p>
+<ul>
+<li><a href="https://www.st.com/en/microcontrollers/stm32f303vc.html">STM32F303VCT6</a> mcu. 这块芯片有:
+<ul>
+<li>支持单精度浮点的单核ARM Cortex-M4F处理器</li>
+<li>256 KiB 闪存 (1 KiB = 10<strong>24</strong> bytes)</li>
+<li>48 KiB RAM</li>
+<li>很多集成外设, 如 计时器, I2C, SPI, USART</li>
+<li>通过标有&quot;USB USER&quot;的USB接口</li>
+</ul>
+</li>
+<li>一个<a href="https://en.wikipedia.org/wiki/Accelerometer">加速度传感器</a> <a href="https://www.st.com/en/mems-and-sensors/lsm303dlhc.html">LSM303DLHC</a></li>
+<li>一个<a href="https://en.wikipedia.org/wiki/Magnetometer">磁强计</a> <a href="https://www.st.com/en/mems-and-sensors/lsm303dlhc.html">LSM303DLHC</a></li>
+<li>一个<a href="https://en.wikipedia.org/wiki/Gyroscope">陀螺仪</a> <a href="https://www.pololu.com/file/0J563/L3GD20.pdf">L3GD20</a></li>
+<li>8个呈指南针排列的LED</li>
+<li>第二个mcu <a href="https://www.st.com/en/microcontrollers/stm32f103cb.html">STM32F103</a>. 实际上是片上编程\调试器ST-LINK的一部分</li>
+</ul>
+<p>关于这块板子更进一步的详细信息, 请参阅<a href="https://www.st.com/en/evaluation-tools/stm32f3discovery.html">STMicroelectronics</a></p>
+<p>警告!: 如果你相对板子施加外部信号, 一定要小心! STM32F303VCT6引脚能承受的电压为3.3V. 更多有关信息, 请参阅用户手册中<a href="https://www.st.com/resource/en/datasheet/stm32f303vc.pdf">6.2 Absolute maximum ratings section in the manual</a></p>
+<h1><a class="header" href="#一个-no_std-的rust环境" id="一个-no_std-的rust环境">一个 <code>no_std</code> 的Rust环境</a></h1>
+<p>嵌入式编程一词用于很多不同种类的涵义. 从只有几KB大小RAM与ROM的8位MCU, 到像是树莓派这样有32/64位四核Cortex-A53 cpu与1GB内存的设备.
+编写代码时, 对于不同设备会有不同的限制.</p>
+<p>有两种通用的嵌入式变成分类:</p>
+<h2><a class="header" href="#托管环境" id="托管环境">托管环境</a></h2>
+<p>这种环境与正常的PC环境相似. 这意味这你能够使用系统级接口, 类似POSIX这样的能提供给你与系统交互的原语, 像是文件系统, 网络, 内存管理, 线程等等.
+你可能还会有些sysroot和RAM/ROM的限制, 可能还会有些特殊的硬件或I/O. 简而言之, 这类似在一台特殊用途的PC环境上编程.</p>
+<h2><a class="header" href="#裸金属" id="裸金属">裸金属</a></h2>
+<p>在一个裸金属环境中, 在你的程序开始之前不会有任何代码被加载. 
+没有OS提供我们没法使用标准库. 
+相反, 程序和它使用的库(Crates)可以只使用硬件(裸金属)来运行. 
+为了防止rust使用标准库, 我们使用<code>no_std</code>. 
+标准库中与平台无关的部分可以通过<a href="https://doc.rust-lang.org/core/">libcore</a>获取. 
+libcore中也排除了在嵌入式环境中并不总是理想的东西. 
+这其中之一就是用于动态内存分配的内存分配器. 
+如果你需要这个或是其他功能, 会有库(Crates)提供. </p>
+<h3><a class="header" href="#libstd运行时" id="libstd运行时">libstd运行时</a></h3>
+<p>像前面说的, 使用<a href="https://doc.rust-lang.org/std/">libstd</a>需要系统支持, 但是这并不只是因为<a href="https://doc.rust-lang.org/std/">libstd</a>至提供了访问OS的通用的抽象的方法, 而且它还提供了一个运行时. 
+这个运行时, 除了其他事情外, 还负责设置对战一处保护, 处理命令行参数还有在调用程序的main函数之前创建主线程. 这个运行时在<code>no_std</code>环境中不可用. </p>
+<h2><a class="header" href="#总结" id="总结">总结</a></h2>
+<p><code>#![no_std]</code>是一个声明这个crate不会连接到std-crate二十core-crate的crate级别的属性.
+<a href="https://doc.rust-lang.org/core/">libcore</a>是std-crate的一个与平台无关的子集, 对程序将要运行在的系统上没有任何假设(需求). 
+因此, 它为语言原语,像是float, string和slices等提供api, 和开放的处理器特性, 像是原子操作与SIMD指令. 
+然而他缺少任何设计平台集成的API. 
+由于这些属性, no_std与<a href="https://doc.rust-lang.org/core/">libcore</a>写成的代码能不能够用于任何类型的引导(stage 0)像是加载程序, 固件还有内核. </p>
+<h3><a class="header" href="#概述" id="概述">概述</a></h3>
+<table><thead><tr><th>feature</th><th>no_std</th><th>std</th></tr></thead><tbody>
+<tr><td>堆 (动态内存)</td><td>*</td><td>✓</td></tr>
+<tr><td>集合 (Vec, HashMap, etc)</td><td>**</td><td>✓</td></tr>
+<tr><td>堆栈溢出保护</td><td>✘</td><td>✓</td></tr>
+<tr><td>初始化函数</td><td>✘</td><td>✓</td></tr>
+<tr><td>libstd  可用</td><td>✘</td><td>✓</td></tr>
+<tr><td>libcore 可用</td><td>✓</td><td>✓</td></tr>
+<tr><td>编写 固件, 内核, 引导加载器</td><td>✓</td><td>✘</td></tr>
+</tbody></table>
+<p>* 只有当你使用 <code>alloc</code> crate并且选择一个合适的分配器, 像是<a href="https://github.com/rust-embedded/alloc-cortex-m">alloc-cortex-m</a>才可用.</p>
+<p>** 只有当你使用 <code>collections</code> crate 并且配置一个全局默认的分配器才可用</p>
+<h2><a class="header" href="#see-also" id="see-also">See Also</a></h2>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/1184-stabilize-no_std.md">RFC-1184</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
