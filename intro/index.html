@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html" class="active"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html" class="active"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -159,11 +159,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#译者序" id="译者序">译者序</a></h1>
-<p>本书为作者抽空翻译,可能有语义不通顺,如有不明白的地方也请参考<a href="https://rust-embedded.github.io/book/#introduction">英文原版</a></p>
-<p>如果有勘误, 欢迎提出你的想法</p>
-<p><del>同时也复习考研英语</del></p>
-<h1><a class="header" href="#引言" id="引言">引言</a></h1>
+                        <h1><a class="header" href="#引言" id="引言">引言</a></h1>
 <p>欢迎阅读嵌入式Rust之书, 本书是使用Rust在如微控制器(MCU)的&quot;裸金属&quot;嵌入式系统上编程的引导</p>
 <h2><a class="header" href="#谁应使用rust进行嵌入式开发" id="谁应使用rust进行嵌入式开发">谁应使用Rust进行嵌入式开发</a></h2>
 <p>嵌入式Rust为任何想要在嵌入式系统上享受Rust提供的高级功能及安全性的人所提供.
@@ -181,20 +177,20 @@
 <p>在某些情况下提供一个开发指南. 例如, 如何在一个项目中混用C与Rust</p>
 </li>
 </ul>
-<p>本书试着尽可能涵盖各种体系, 但是为了让读者与作者~~还有翻译~~更轻松, 在所有实例中都是用ARM Cortex-M架构. 
-但是, 本书并不建立在读者熟悉该架构的基础上, 会在需要的地方解释架构的细节. </p>
+<p>本书试着尽可能涵盖各种体系, 但是为了让读者与作者~~还有翻译~~更轻松, 在所有实例中都是用ARM Cortex-M架构.
+但是, 本书并不建立在读者熟悉该架构的基础上, 会在需要的地方解释架构的细节.</p>
 <h2><a class="header" href="#这本书适合谁" id="这本书适合谁">这本书适合谁</a></h2>
-<p>本书面向具有一定嵌入式背景或者对Rust熟悉的人, 但是我们相信每个对嵌入式Rust编程感兴趣的人都可以从本书中学到东西. 
-对于那些没有任何经验知识的人, 建议您阅读 &quot;先决条件&quot; 部分并且补全缺少的知识, 以便从书中获得更多知识并且提升阅读体验. 
+<p>本书面向具有一定嵌入式背景或者对Rust熟悉的人, 但是我们相信每个对嵌入式Rust编程感兴趣的人都可以从本书中学到东西.
+对于那些没有任何经验知识的人, 建议您阅读 &quot;先决条件&quot; 部分并且补全缺少的知识, 以便从书中获得更多知识并且提升阅读体验.
 你可以查看 &quot;其他资源&quot; 部分来查找你想获得的知识对应资源.</p>
 <h3><a class="header" href="#先决条件" id="先决条件">先决条件</a></h3>
 <ul>
 <li>
-<p>你对使用Rust很熟悉, 并且在桌面环境Rust程序写过, 跑过, 捉过虫. 
+<p>你对使用Rust很熟悉, 并且在桌面环境Rust程序写过, 跑过, 捉过虫.
 对Rust2018版本熟悉, 应为本书使用Rust 2018</p>
 </li>
 <li>
-<p>熟悉使用其他语言, 如C, C++, Ada开发调试嵌入式系统, 熟悉如以下概念: </p>
+<p>熟悉使用其他语言, 如C, C++, Ada开发调试嵌入式系统, 熟悉如以下概念:</p>
 <ul>
 <li>交叉编译</li>
 <li>内存映射外设</li>
@@ -217,7 +213,7 @@
 </tbody></table>
 <h2><a class="header" href="#怎么看这本书" id="怎么看这本书">怎么看这本书</a></h2>
 <p>这本书默认你从头看到尾. 后面的章节建立在前面的基础上, 并且前面的章节不会深挖某个细节部分, 在后面会重新探讨这个问题</p>
-<p>这本书使用ST公司的<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a>开发板作为例子. 
+<p>这本书使用ST公司的<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a>开发板作为例子.
 这个开发板时ARM Cortex-M架构, 尽管基于该架构的大多数CPU的基本功能都是相似的, 但是不同供应商之间的MCU的外设与其他市县细节是不同的, 并且同意供应商之间的MCU也往往有所不同.</p>
 <p>出于这个原因, 我们建议你买一块<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a>开发板来跟着学习本书中的例子.</p>
 <h2><a class="header" href="#为本书做贡献" id="为本书做贡献">为本书做贡献</a></h2>
@@ -225,6 +221,9 @@
 <p>如果你跟不住本书或是发现本书中某些部分不够清晰明白或者很难学习, 拿着就是一个BUG并且应该在<a href="https://github.com/rust-embedded/book/issues/">the issue tracker</a>被汇报</p>
 <p>欢迎修改文字错误或是增加内容</p>
 <h2><a class="header" href="#中文翻译" id="中文翻译">中文翻译</a></h2>
+<p>本书为作者抽空翻译,可能有语义不通顺,如有不明白的地方也请参考<a href="https://rust-embedded.github.io/book/#introduction">英文原版</a></p>
+<p>如果有勘误, 欢迎提出你的想法</p>
+<p><del>同时也复习考研英语</del></p>
 <p>本书<a href="https://github.com/Logiase/The-Embedded-Rust-Book-CN">仓库</a></p>
 <p>时刻欢迎批评与建议</p>
 <h2><a class="header" href="#重用本书资源" id="重用本书资源">重用本书资源</a></h2>

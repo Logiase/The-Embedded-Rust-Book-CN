@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -161,11 +161,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#译者序" id="译者序">译者序</a></h1>
-<p>本书为作者抽空翻译,可能有语义不通顺,如有不明白的地方也请参考<a href="https://rust-embedded.github.io/book/#introduction">英文原版</a></p>
-<p>如果有勘误, 欢迎提出你的想法</p>
-<p><del>同时也复习考研英语</del></p>
-<h1><a class="header" href="#引言" id="引言">引言</a></h1>
+                        <h1><a class="header" href="#引言" id="引言">引言</a></h1>
 <p>欢迎阅读嵌入式Rust之书, 本书是使用Rust在如微控制器(MCU)的&quot;裸金属&quot;嵌入式系统上编程的引导</p>
 <h2><a class="header" href="#谁应使用rust进行嵌入式开发" id="谁应使用rust进行嵌入式开发">谁应使用Rust进行嵌入式开发</a></h2>
 <p>嵌入式Rust为任何想要在嵌入式系统上享受Rust提供的高级功能及安全性的人所提供.
@@ -183,20 +179,20 @@
 <p>在某些情况下提供一个开发指南. 例如, 如何在一个项目中混用C与Rust</p>
 </li>
 </ul>
-<p>本书试着尽可能涵盖各种体系, 但是为了让读者与作者~~还有翻译~~更轻松, 在所有实例中都是用ARM Cortex-M架构. 
-但是, 本书并不建立在读者熟悉该架构的基础上, 会在需要的地方解释架构的细节. </p>
+<p>本书试着尽可能涵盖各种体系, 但是为了让读者与作者~~还有翻译~~更轻松, 在所有实例中都是用ARM Cortex-M架构.
+但是, 本书并不建立在读者熟悉该架构的基础上, 会在需要的地方解释架构的细节.</p>
 <h2><a class="header" href="#这本书适合谁" id="这本书适合谁">这本书适合谁</a></h2>
-<p>本书面向具有一定嵌入式背景或者对Rust熟悉的人, 但是我们相信每个对嵌入式Rust编程感兴趣的人都可以从本书中学到东西. 
-对于那些没有任何经验知识的人, 建议您阅读 &quot;先决条件&quot; 部分并且补全缺少的知识, 以便从书中获得更多知识并且提升阅读体验. 
+<p>本书面向具有一定嵌入式背景或者对Rust熟悉的人, 但是我们相信每个对嵌入式Rust编程感兴趣的人都可以从本书中学到东西.
+对于那些没有任何经验知识的人, 建议您阅读 &quot;先决条件&quot; 部分并且补全缺少的知识, 以便从书中获得更多知识并且提升阅读体验.
 你可以查看 &quot;其他资源&quot; 部分来查找你想获得的知识对应资源.</p>
 <h3><a class="header" href="#先决条件" id="先决条件">先决条件</a></h3>
 <ul>
 <li>
-<p>你对使用Rust很熟悉, 并且在桌面环境Rust程序写过, 跑过, 捉过虫. 
+<p>你对使用Rust很熟悉, 并且在桌面环境Rust程序写过, 跑过, 捉过虫.
 对Rust2018版本熟悉, 应为本书使用Rust 2018</p>
 </li>
 <li>
-<p>熟悉使用其他语言, 如C, C++, Ada开发调试嵌入式系统, 熟悉如以下概念: </p>
+<p>熟悉使用其他语言, 如C, C++, Ada开发调试嵌入式系统, 熟悉如以下概念:</p>
 <ul>
 <li>交叉编译</li>
 <li>内存映射外设</li>
@@ -219,7 +215,7 @@
 </tbody></table>
 <h2><a class="header" href="#怎么看这本书" id="怎么看这本书">怎么看这本书</a></h2>
 <p>这本书默认你从头看到尾. 后面的章节建立在前面的基础上, 并且前面的章节不会深挖某个细节部分, 在后面会重新探讨这个问题</p>
-<p>这本书使用ST公司的<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a>开发板作为例子. 
+<p>这本书使用ST公司的<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a>开发板作为例子.
 这个开发板时ARM Cortex-M架构, 尽管基于该架构的大多数CPU的基本功能都是相似的, 但是不同供应商之间的MCU的外设与其他市县细节是不同的, 并且同意供应商之间的MCU也往往有所不同.</p>
 <p>出于这个原因, 我们建议你买一块<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a>开发板来跟着学习本书中的例子.</p>
 <h2><a class="header" href="#为本书做贡献" id="为本书做贡献">为本书做贡献</a></h2>
@@ -227,6 +223,9 @@
 <p>如果你跟不住本书或是发现本书中某些部分不够清晰明白或者很难学习, 拿着就是一个BUG并且应该在<a href="https://github.com/rust-embedded/book/issues/">the issue tracker</a>被汇报</p>
 <p>欢迎修改文字错误或是增加内容</p>
 <h2><a class="header" href="#中文翻译" id="中文翻译">中文翻译</a></h2>
+<p>本书为作者抽空翻译,可能有语义不通顺,如有不明白的地方也请参考<a href="https://rust-embedded.github.io/book/#introduction">英文原版</a></p>
+<p>如果有勘误, 欢迎提出你的想法</p>
+<p><del>同时也复习考研英语</del></p>
 <p>本书<a href="https://github.com/Logiase/The-Embedded-Rust-Book-CN">仓库</a></p>
 <p>时刻欢迎批评与建议</p>
 <h2><a class="header" href="#重用本书资源" id="重用本书资源">重用本书资源</a></h2>
@@ -279,23 +278,23 @@
 <p>这种环境与正常的PC环境相似. 这意味这你能够使用系统级接口, 类似POSIX这样的能提供给你与系统交互的原语, 像是文件系统, 网络, 内存管理, 线程等等.
 你可能还会有些sysroot和RAM/ROM的限制, 可能还会有些特殊的硬件或I/O. 简而言之, 这类似在一台特殊用途的PC环境上编程.</p>
 <h2><a class="header" href="#裸金属" id="裸金属">裸金属</a></h2>
-<p>在一个裸金属环境中, 在你的程序开始之前不会有任何代码被加载. 
-没有OS提供我们没法使用标准库. 
-相反, 程序和它使用的库(Crates)可以只使用硬件(裸金属)来运行. 
-为了防止rust使用标准库, 我们使用<code>no_std</code>. 
-标准库中与平台无关的部分可以通过<a href="https://doc.rust-lang.org/core/">libcore</a>获取. 
-libcore中也排除了在嵌入式环境中并不总是理想的东西. 
-这其中之一就是用于动态内存分配的内存分配器. 
-如果你需要这个或是其他功能, 会有库(Crates)提供. </p>
+<p>在一个裸金属环境中, 在你的程序开始之前不会有任何代码被加载.
+没有OS提供我们没法使用标准库.
+相反, 程序和它使用的库(Crates)可以只使用硬件(裸金属)来运行.
+为了防止rust使用标准库, 我们使用<code>no_std</code>.
+标准库中与平台无关的部分可以通过<a href="https://doc.rust-lang.org/core/">libcore</a>获取.
+libcore中也排除了在嵌入式环境中并不总是理想的东西.
+这其中之一就是用于动态内存分配的内存分配器.
+如果你需要这个或是其他功能, 会有库(Crates)提供.</p>
 <h3><a class="header" href="#libstd运行时" id="libstd运行时">libstd运行时</a></h3>
-<p>像前面说的, 使用<a href="https://doc.rust-lang.org/std/">libstd</a>需要系统支持, 但是这并不只是因为<a href="https://doc.rust-lang.org/std/">libstd</a>至提供了访问OS的通用的抽象的方法, 而且它还提供了一个运行时. 
-这个运行时, 除了其他事情外, 还负责设置对战一处保护, 处理命令行参数还有在调用程序的main函数之前创建主线程. 这个运行时在<code>no_std</code>环境中不可用. </p>
+<p>像前面说的, 使用<a href="https://doc.rust-lang.org/std/">libstd</a>需要系统支持, 但是这并不只是因为<a href="https://doc.rust-lang.org/std/">libstd</a>至提供了访问OS的通用的抽象的方法, 而且它还提供了一个运行时.
+这个运行时, 除了其他事情外, 还负责设置对战一处保护, 处理命令行参数还有在调用程序的main函数之前创建主线程. 这个运行时在<code>no_std</code>环境中不可用.</p>
 <h2><a class="header" href="#总结" id="总结">总结</a></h2>
 <p><code>#![no_std]</code>是一个声明这个crate不会连接到std-crate二十core-crate的crate级别的属性.
-<a href="https://doc.rust-lang.org/core/">libcore</a>是std-crate的一个与平台无关的子集, 对程序将要运行在的系统上没有任何假设(需求). 
-因此, 它为语言原语,像是float, string和slices等提供api, 和开放的处理器特性, 像是原子操作与SIMD指令. 
-然而他缺少任何设计平台集成的API. 
-由于这些属性, no_std与<a href="https://doc.rust-lang.org/core/">libcore</a>写成的代码能不能够用于任何类型的引导(stage 0)像是加载程序, 固件还有内核. </p>
+<a href="https://doc.rust-lang.org/core/">libcore</a>是std-crate的一个与平台无关的子集, 对程序将要运行在的系统上没有任何假设(需求).
+因此, 它为语言原语,像是float, string和slices等提供api, 和开放的处理器特性, 像是原子操作与SIMD指令.
+然而他缺少任何设计平台集成的API.
+由于这些属性, no_std与<a href="https://doc.rust-lang.org/core/">libcore</a>写成的代码能不能够用于任何类型的引导(stage 0)像是加载程序, 固件还有内核.</p>
 <h3><a class="header" href="#概述" id="概述">概述</a></h3>
 <table><thead><tr><th>feature</th><th>no_std</th><th>std</th></tr></thead><tbody>
 <tr><td>堆 (动态内存)</td><td>*</td><td>✓</td></tr>
@@ -313,8 +312,8 @@ libcore中也排除了在嵌入式环境中并不总是理想的东西.
 <li><a href="https://github.com/rust-lang/rfcs/blob/master/text/1184-stabilize-no_std.md">RFC-1184</a></li>
 </ul>
 <h1><a class="header" href="#工具" id="工具">工具</a></h1>
-<p>处理微控制器涉及到使用集中不同的工具, 因为我们要处理一个与你电脑架构不同的架构, 我们必须要在远程设备上来运行和调试程序. </p>
-<p>我们会使用下面列出的工具. 没指定最低版本时, 按理说任何最新版本都能用, 但是我们也列出了经过测试的版本. </p>
+<p>处理微控制器涉及到使用集中不同的工具, 因为我们要处理一个与你电脑架构不同的架构, 我们必须要在远程设备上来运行和调试程序.</p>
+<p>我们会使用下面列出的工具. 没指定最低版本时, 按理说任何最新版本都能用, 但是我们也列出了经过测试的版本.</p>
 <ul>
 <li>Rust 1.31, 1.31-beta, 或带有 ARM Cortex-M 编译器的更新的工具链</li>
 <li><a href="https://github.com/rust-embedded/cargo-binutils"><code>cargo-binutils</code></a> ~0.1.4</li>
@@ -322,32 +321,31 @@ libcore中也排除了在嵌入式环境中并不总是理想的东西.
 <li>OpenOCD &gt;=0.8. 测试版本: v0.9.0 and v0.10.0</li>
 <li>GDB with ARM support. 7.12或更高版本. 测试版本: 7.10, 7.11, 7.12 and 8.1</li>
 <li><a href="https://github.com/ashleygwilliams/cargo-generate"><code>cargo-generate</code></a> 或 <code>git</code>.
-这个工具可选但是会让你学习本书更加轻松. </li>
+这个工具可选但是会让你学习本书更加轻松.</li>
 </ul>
-<p>下面来讲为什么我们需要这些工具. 安装说明会在下一页提及. </p>
+<p>下面来讲为什么我们需要这些工具. 安装说明会在下一页提及.</p>
 <h2><a class="header" href="#cargo-generate-或-git" id="cargo-generate-或-git"><code>cargo-generate</code> 或 <code>git</code></a></h2>
-<p>裸金属应用是不标准(<code>no_std</code>)的Rust程序, 需要对链接过程做出一些调整, 以使程序的内存布局正确. 这需要一些额外的文件(像是链接器脚本)和设置(像是连接器参数). 
-我们已经把这些打包成了一个模板, 这样你就只需要填写确实的信息就行(就想项目名称和目标硬件型号). </p>
-<p>我们的模板与<code>cargo-generate</code>兼容, <code>cargo-generate</code>是Cargo的一个子命令, 用来从模板创建新的Cargo项目. 你也可以使用<code>git</code>, <code>curl</code>, <code>wget</code>或浏览器来下载模板. </p>
+<p>裸金属应用是不标准(<code>no_std</code>)的Rust程序, 需要对链接过程做出一些调整, 以使程序的内存布局正确. 这需要一些额外的文件(像是链接器脚本)和设置(像是连接器参数).
+我们已经把这些打包成了一个模板, 这样你就只需要填写确实的信息就行(就想项目名称和目标硬件型号).</p>
+<p>我们的模板与<code>cargo-generate</code>兼容, <code>cargo-generate</code>是Cargo的一个子命令, 用来从模板创建新的Cargo项目. 你也可以使用<code>git</code>, <code>curl</code>, <code>wget</code>或浏览器来下载模板.</p>
 <h2><a class="header" href="#cargo-binutils" id="cargo-binutils"><code>cargo-binutils</code></a></h2>
 <p><code>cargo-binutils</code>是Cargo的一系列子命令, 用来更轻松的配合Rust工具链使用LLVM工具. 这些工具包含LLVM版本的<code>objdump</code>, <code>nm</code>和<code>size</code>, 用来检查二进制产物.</p>
 <p>与GNU binmutils相比, 使用这些工具的优势在于, (a) 可以无视系统一键安装LLVM工具(<code>rustup component add llvm-tools-preview</code>), (b) 像<code>objdump</code>这样的工具支持所有<code>rustc</code>支持的所有架构, 从 ARM 到 x86_64 应为他们都使用了相同的LLVM后端.</p>
 <h2><a class="header" href="#qemu-system-arm" id="qemu-system-arm"><code>qemu-system-arm</code></a></h2>
-<p>QEMU是个模拟器. 在本书中, 我们使用能够模拟各种ARM系统的变体. 
-我们使用QEMU来在电脑上运行嵌入式程序. 
-多亏这个, 你能在没有硬件的情况下学习本书. </p>
+<p>QEMU是个模拟器. 在本书中, 我们使用能够模拟各种ARM系统的变体.
+我们使用QEMU来在电脑上运行嵌入式程序.
+多亏这个, 你能在没有硬件的情况下学习本书.</p>
 <h2><a class="header" href="#gdb" id="gdb">GDB</a></h2>
-<p>调试器是嵌入式开发中非常重要的一个组件, 因为你并不总是有足够的空间去把气质打到控制台上. 
+<p>调试器是嵌入式开发中非常重要的一个组件, 因为你并不总是有足够的空间去把气质打到控制台上.
 某些情况下, 你的硬件上甚至都没有LED可以闪(呜呜呜).</p>
-<p>通常情况下, 涉及到调试的时候, LLDB和GDB差不多, 但是我们还没找到一个与GDB的<code>load</code>命令相同功能的LLDB指令, 这个命令把程序加载到硬件上, 所以我们建议你使用GDB. </p>
+<p>通常情况下, 涉及到调试的时候, LLDB和GDB差不多, 但是我们还没找到一个与GDB的<code>load</code>命令相同功能的LLDB指令, 这个命令把程序加载到硬件上, 所以我们建议你使用GDB.</p>
 <h2><a class="header" href="#openocd" id="openocd">OpenOCD</a></h2>
-<p>GDB现在还不能直接通过ST-Link调试器和你的STM32F3DISCOVERY开发板沟通. 
-他需要一个翻译器, Open On-Chip Debugger 缩写 OpenOCD 就是这个翻译器. 
-OpenOCD是在你电脑上运行的, 可以在GDB基于TCP/IP的远程调试协议和ST-LINK基于USB的协议之间进行转换. </p>
+<p>GDB现在还不能直接通过ST-Link调试器和你的STM32F3DISCOVERY开发板沟通.
+他需要一个翻译器, Open On-Chip Debugger 缩写 OpenOCD 就是这个翻译器.
+OpenOCD是在你电脑上运行的, 可以在GDB基于TCP/IP的远程调试协议和ST-LINK基于USB的协议之间进行转换.</p>
 <p>OpenOCD还执行其他工作, 作为翻译的一部分, 用于调试STM32F3DISCOVERY开发板上的ARM Cortex-M处理器.</p>
 <ul>
-<li>他知道如何与ARM CoreSight调试外围设备使用的内存映射寄存器沟通. 
-正是这些CoreSight寄存器允许:
+<li>他知道如何与ARM CoreSight调试外围设备使用的内存映射寄存器沟通.正是这些CoreSight寄存器允许:
 <ul>
 <li>断电/观察点操作</li>
 <li>读写CPU寄存器</li>
@@ -359,15 +357,15 @@ OpenOCD是在你电脑上运行的, 可以在GDB基于TCP/IP的远程调试协�
 <li>它还知道如何擦除和覆写mcu的flash</li>
 </ul>
 <h1><a class="header" href="#安装工具" id="安装工具">安装工具</a></h1>
-<p>此页包含与操作系统无关的工具安装说明: </p>
+<p>此页包含与操作系统无关的工具安装说明:</p>
 <h3><a class="header" href="#rust-工具链" id="rust-工具链">Rust 工具链</a></h3>
 <p>按照<a href="https://rustup.rs">https://rustup.rs</a>的教程安装rustup.</p>
 <p><strong>NOTE</strong> 确保你有<code>1.31</code>或以上版本的编译器. <code>rustc -V</code>应该返回一个更新的版本.</p>
 <pre><code class="language-console">$ rustc -V
 rustc 1.31.1 (b6c32da9b 2018-12-18)
 </code></pre>
-<p>为了带宽和磁盘的使用情况, 默认安装只支持本机编译. 
-要想添加ARM Cortex-M的交叉编译支持, 应该选择下面其一的编译目标. 
+<p>为了带宽和磁盘的使用情况, 默认安装只支持本机编译.
+要想添加ARM Cortex-M的交叉编译支持, 应该选择下面其一的编译目标.
 对于STM32F3DISCOVERY开发板, 应该使用<code>thumbv7em-none-eabihf</code></p>
 <p>Cortex-M0, M0+, M1 (ARMv6-M 架构):</p>
 <pre><code class="language-console">$ rustup target add thumbv6m-none-eabi
@@ -458,7 +456,7 @@ $ rustup component add llvm-tools-preview
 <pre><code class="language-console">sudo pacman -S arm-none-eabi-gdb qemu-arch-extra openocd
 </code></pre>
 <h2><a class="header" href="#udev规则" id="udev规则">udev规则</a></h2>
-<p>这条规则让你可以使用OpenOCD而不要root权限. </p>
+<p>这条规则让你可以使用OpenOCD而不要root权限.</p>
 <p>在<code>/etc/udev/rules.d/70-st-link.rules</code>创建文件, 并写入以下内容.</p>
 <pre><code class="language-text"># STM32F3DISCOVERY rev A/B - ST-LINK/V2
 ATTRS{idVendor}==&quot;0483&quot;, ATTRS{idProduct}==&quot;3748&quot;, TAG+=&quot;uaccess&quot;
@@ -469,7 +467,7 @@ ATTRS{idVendor}==&quot;0483&quot;, ATTRS{idProduct}==&quot;374b&quot;, TAG+=&quo
 <p>然后重新加载udev规则</p>
 <pre><code class="language-console">sudo udevadm control --reload-rules
 </code></pre>
-<p>如果你把板子连接到了电脑, 重新连接. </p>
+<p>如果你把板子连接到了电脑, 重新连接.</p>
 <p>使用如下命令检查权限:</p>
 <pre><code class="language-console">lsusb
 </code></pre>
@@ -504,7 +502,7 @@ $ brew install qemu
 <p>这就是全部了, <a href="intro/install/verify.html">下一部分</a>.</p>
 <h1><a class="header" href="#windows" id="windows">Windows</a></h1>
 <h2><a class="header" href="#arm-none-eabi-gdb" id="arm-none-eabi-gdb"><code>arm-none-eabi-gdb</code></a></h2>
-<p>ARM为Windows提供了<code>.exe</code>安装器. 从这<a href="https://xpack.github.io/openocd/">openocd</a>: https://xpack.github.io/openocd/下载<a href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads">here</a>, 然后跟着说i名安装.
+<p>ARM为Windows提供了<code>.exe</code>安装器. 从这<a href="https://xpack.github.io/openocd/">openocd</a>: <a href="https://xpack.github.io/openocd/">https://xpack.github.io/openocd/</a>下载<a href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads">here</a>, 然后跟着说i名安装.
 在安装结束之前选择&quot;添加到环境变量&quot;选项. 然后验证工具已经在<code>%PATH%</code>中:</p>
 <pre><code class="language-console">$ arm-none-eabi-gdb -v
 GNU gdb (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 8.1.0.20180315-git
@@ -518,7 +516,7 @@ Open On-Chip Debugger 0.10.0
 (..)
 </code></pre>
 <h2><a class="header" href="#qemu" id="qemu">QEMU</a></h2>
-<p>从<a href="https://www.qemu.org/download/#windows">官方网站</a>获取QEMU. </p>
+<p>从<a href="https://www.qemu.org/download/#windows">官方网站</a>获取QEMU.</p>
 <h2><a class="header" href="#st-link-usb驱动" id="st-link-usb驱动">ST-LINK USB驱动</a></h2>
 <p>你还需要安装<a href="http://www.st.com/en/embedded-software/stsw-link009.html">USB驱动</a>, 否则OpenOCD不能工作. 跟着安装说明并且保证你安装了正确的版本(32位或64位).</p>
 <p>这就是全部了, <a href="intro/install/verify.html">下一部分</a></p>
@@ -550,7 +548,7 @@ Info : using stlink api v2
 Info : Target voltage: 2.919881
 Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
 </code></pre>
-<p>内容并不会完全一样, 但你应该会看到有关断点和观察点的最后一行. 
+<p>内容并不会完全一样, 但你应该会看到有关断点和观察点的最后一行.
 如果没什么问题那就关掉OpenOCD然后到<a href="intro/install/../../start/index.html">下一部分</a>.</p>
 <p>如果你没看到 &quot;断点&quot; 这一行, 那试试如下命令.</p>
 <pre><code class="language-console">$ openocd -f interface/stlink-v2.cfg -f target/stm32f3x.cfg
@@ -560,6 +558,278 @@ Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
 <p>如果有一条命令成功了, 这意味这你手上的是个旧版本Discovery. 那不会有什么问题, 除了内存设置会在后面有些不同, 到<a href="intro/install/../../start/index.html">下一部分</a>.</p>
 <p>如果这些命令都用不了, 那就试试使用root权限(像是<code>sudo openocd ...</code>). 如果命令能够执行, 那么检查一下<a href="intro/install/linux.html#udev%E8%A7%84%E5%88%99">udev规则</a>是否正确. </p>
 <p>如果到这, 你的OpenOCD还是不能用, 那就来发个<a href="https://github.com/rust-embedded/book/issues">issue</a>然后我们来帮你!</p>
+<h1><a class="header" href="#开始" id="开始">开始</a></h1>
+<p>在这一部分, 我们会带你写代码, 编译, 烧录, 调试嵌入式程序.
+我们会教你QEMU的基础, 一个开源的硬件模拟器, 因此你能不用硬件来运行大部分例子.
+很自然的, 唯一需要硬件的章节就是<a href="start/./hardware.html">硬件</a>, 在这部分我们使用OpenOCD在<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a></p>
+<h1><a class="header" href="#qemu-1" id="qemu-1">QEMU</a></h1>
+<p>我们要开始给<a href="http://www.ti.com/product/LM3S6965">LM3S6965</a>编程, <a href="http://www.ti.com/product/LM3S6965">LM3S6965</a>是一个Cortex-M3微控制器.
+我们选择这个作为开始是应为它能被QEMU<a href="https://wiki.qemu.org/Documentation/Platforms/ARM#Supported_in_qemu-system-arm">模拟</a>,所以你不必在本部分玩弄硬件,专心与工具与编程.</p>
+<p><strong>Important</strong>
+在本教程中我们使用&quot;app&quot;作为项目名.
+当你看到&quot;app&quot;这个词的时候,你应该把它换成你给你自己的项目起的名.
+或者,你就可以把你的项目名设成&quot;app&quot;.</p>
+<h2><a class="header" href="#创建一个不含标准库的rust程序" id="创建一个不含标准库的rust程序">创建一个不含标准库的Rust程序</a></h2>
+<p>我们会使用<a href="https://github.com/rust-embedded/cortex-m-quickstart"><code>cortex-m-quickstart</code></a>项目模板来生成一个新项目.
+新创建的项目会包含一个基础结构:
+一个对嵌入式Rust程序的好的开始.
+这个项目还额外包括一个有着几个不同例子的<code>example</code>文件夹.</p>
+<h3><a class="header" href="#使用-cargo-generate" id="使用-cargo-generate">使用 <code>cargo-generate</code></a></h3>
+<p>首先安装 cargo-generate</p>
+<pre><code class="language-console">cargo install cargo-generate
+</code></pre>
+<p>然后生成一个新项目</p>
+<pre><code class="language-console">cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart
+</code></pre>
+<pre><code class="language-text"> Project Name: app
+ Creating project called `app`...
+ Done! New project created /tmp/app
+</code></pre>
+<pre><code class="language-console">cd app
+</code></pre>
+<h3><a class="header" href="#使用git" id="使用git">使用<code>git</code></a></h3>
+<p>克隆仓库</p>
+<pre><code class="language-console">git clone https://github.com/rust-embedded/cortex-m-quickstart app
+cd app
+</code></pre>
+<p>然后修改<code>Cargo.toml</code>中的占位符</p>
+<pre><code class="language-toml">[package]
+authors = [&quot;{{authors}}&quot;] # &quot;{{authors}}&quot; -&gt; &quot;John Smith&quot;
+edition = &quot;2018&quot;
+name = &quot;{{project-name}}&quot; # &quot;{{project-name}}&quot; -&gt; &quot;awesome-app&quot;
+version = &quot;0.1.0&quot;
+
+# ..
+
+[[bin]]
+name = &quot;{{project-name}}&quot; # &quot;{{project-name}}&quot; -&gt; &quot;awesome-app&quot;
+test = false
+bench = false
+</code></pre>
+<h3><a class="header" href="#两者都不用" id="两者都不用">两者都不用</a></h3>
+<p>下载最新的<code>cortex-m-quickstart</code>然后解压</p>
+<pre><code class="language-console">curl -LO https://github.com/rust-embedded/cortex-m-quickstart/archive/master.zip
+unzip master.zip
+mv cortex-m-quickstart-master app
+cd app
+</code></pre>
+<p>或者你可以打开<a href="https://github.com/rust-embedded/cortex-m-quickstart"><code>cortex-m-quickstart</code></a>,然后点绿色的&quot;Clone or download&quot;,然后选择&quot;Download ZIP&quot;.</p>
+<p>然后按照第二部分&quot;使用git&quot;中修改占位符.</p>
+<h2><a class="header" href="#程序概览" id="程序概览">程序概览</a></h2>
+<p>为了方便,<code>src/main.rs</code>中已经有了很重要的部分:</p>
+<pre><code class="language-rust ignore">#![no_std]
+#![no_main]
+
+use panic_halt as _;
+
+use cortex_m_rt::entry;
+
+#[entry]
+fn main() -&gt; ! {
+    loop {
+        // your code goes here
+    }
+}
+</code></pre>
+<p>这个和标准的Rust程序不太一样,咱们来凑近一点看看.</p>
+<p><code>#![no_std]</code>声明这个程序<em>不会</em>连接到<code>std</code>标准库.
+作为代替会连接到<code>core</code></p>
+<p><code>#![no_main]</code>声明这个程序不会使用大部分Rust使用的main函数接口.
+使用<code>no_main</code>主要原因是在<code>no_std</code>中使用<code>main</code>需要每夜版的Rust.</p>
+<p><code>use panic_halt as _;</code>.这个库提供一个定义panic行为的<code>panic_handler</code>.
+我们会在<a href="start/panicing.html">Panicing</a>章节中讨论更多细节.</p>
+<p><a href="https://docs.rs/cortex-m-rt-macros/latest/cortex_m_rt_macros/attr.entry.html"><code>#[entry]</code></a>是一个由<a href="https://crates.io/crates/cortex-m-rt"><code>cortex-m-rt</code></a>提供的属性,用来标记程序的入口.
+当我们不用标准的<code>main</code>入口我们就需要其他的方式声明程序的入口,就是<code>#[entry]</code>.</p>
+<p><code>fn main() -&gt; !</code>.我们的程序<em>只会</em>运行在目标硬件上,所以我们不希望他停止!
+我们使用一个<a href="https://doc.rust-lang.org/rust-by-example/fn/diverging.html">发散函数</a> (<code>-&gt;!</code>符号)来确保编译期不会出问题.</p>
+<h2><a class="header" href="#交叉编译" id="交叉编译">交叉编译</a></h2>
+<p>下一步是为Cortex-M3架构进行<em>交叉</em>编译.
+在知道编译目标时(<code>$TRIPLE</code>)使用<code>cargo build --target $TRIPLE</code>会很方便.
+很幸运,模板中的<code>.cargo/config</code>已经提供了答案.</p>
+<pre><code class="language-console">tail -n6 .cargo/config
+</code></pre>
+<pre><code class="language-toml">[build]
+# Pick ONE of these compilation targets
+# target = &quot;thumbv6m-none-eabi&quot;    # Cortex-M0 and Cortex-M0+
+target = &quot;thumbv7m-none-eabi&quot;    # Cortex-M3
+# target = &quot;thumbv7em-none-eabi&quot;   # Cortex-M4 and Cortex-M7 (no FPU)
+# target = &quot;thumbv7em-none-eabihf&quot; # Cortex-M4F and Cortex-M7F (with FPU)
+</code></pre>
+<p>为了给Cortex-M3架构交叉编译,我们要使用<code>thumbv7m-none-eabi</code>.
+这个编译目标并不是自带的,如果你没有的话,现在就装:</p>
+<pre><code class="language-console">rustup target add thumbv7m-none-eabi
+</code></pre>
+<p>如果<code>thumbv7m-none-eabi</code>已经<code>.cargo/config</code>中设为默认值,那下面这两条命令是一样的</p>
+<pre><code class="language-console">cargo build --target thumbv7m-none-eabi
+cargo build
+</code></pre>
+<h2><a class="header" href="#检查" id="检查">检查</a></h2>
+<p>现在我们在<code>target/thumbv7m-none-eabi/debug/app</code>有一个非本机的ELF二进制文件.
+我们可以用<code>cargo-binutils</code>来检查它.</p>
+<p>使用<code>cargo-readobj</code>来查看ELF头来确认这是个给ARM的二进制文件.</p>
+<pre><code class="language-console">cargo readobj --bin app -- -file-headers
+</code></pre>
+<p>注意:</p>
+<ul>
+<li><code>--bin app</code>是个<code>target/$TRIPLE/debug/app</code>的语法糖</li>
+<li><code>--bin app</code>如果需要的话会重新编译</li>
+</ul>
+<pre><code class="language-text">ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0x0
+  Type:                              EXEC (Executable file)
+  Machine:                           ARM
+  Version:                           0x1
+  Entry point address:               0x405
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          153204 (bytes into file)
+  Flags:                             0x5000200
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         2
+  Size of section headers:           40 (bytes)
+  Number of section headers:         19
+  Section header string table index: 18
+</code></pre>
+<p><code>cargo-size</code>可以打印二进制文件中连接器的部分.</p>
+<pre><code class="language-console">cargo size --bin app --release -- -A
+</code></pre>
+<p>我们使用<code>--release</code>来获取优化的版本.</p>
+<pre><code class="language-text">app  :
+section             size        addr
+.vector_table       1024         0x0
+.text                 92       0x400
+.rodata                0       0x45c
+.data                  0  0x20000000
+.bss                   0  0x20000000
+.debug_str          2958         0x0
+.debug_loc            19         0x0
+.debug_abbrev        567         0x0
+.debug_info         4929         0x0
+.debug_ranges         40         0x0
+.debug_macinfo         1         0x0
+.debug_pubnames     2035         0x0
+.debug_pubtypes     1892         0x0
+.ARM.attributes       46         0x0
+.debug_frame         100         0x0
+.debug_line          867         0x0
+Total              14570
+</code></pre>
+<blockquote>
+<p>A refresher on ELF linker sections</p>
+<ul>
+<li><code>.text</code> contains the program instructions</li>
+<li><code>.rodata</code> contains constant values like strings</li>
+<li><code>.data</code> contains statically allocated variables whose initial values are
+<em>not</em> zero</li>
+<li><code>.bss</code> also contains statically allocated variables whose initial values
+<em>are</em> zero</li>
+<li><code>.vector_table</code> is a <em>non</em>-standard section that we use to store the vector
+(interrupt) table</li>
+<li><code>.ARM.attributes</code> and the <code>.debug_*</code> sections contain metadata and will
+<em>not</em> be loaded onto the target when flashing the binary.</li>
+</ul>
+</blockquote>
+<p><strong>IMPORTANT</strong>: ELF文件包含了类似Debug信息等等元数据,所以他们的在<em>磁盘上的大小</em>并<em>不能</em>
+准确的反映烧录在硬件上的大小.<em>通常</em>使用<code>cargo-size</code>来检查二进制文件真正的大小</p>
+<p><code>cargo-objdump</code>可用于反汇编二进制文件.</p>
+<pre><code class="language-console">cargo objdump --bin app --release -- --disassemble --no-show-raw-insn --print-imm-hex
+</code></pre>
+<blockquote>
+<p><strong>NOTE</strong> 如果以上命令报错<code>Unknown command line argument</code>,
+可以看看这个bug: <a href="https://github.com/rust-embedded/book/issues/269">https://github.com/rust-embedded/book/issues/269</a></p>
+<p><strong>NOTE</strong> 这个根据不同系统有所区别.新版本的rustc,LLVM还有库会生成不同的二进制文件.
+我们删节了一些说明,意识代码段变小.</p>
+</blockquote>
+<pre><code class="language-text">app:  file format ELF32-arm-little
+
+Disassembly of section .text:
+main:
+     400: bl  #0x256
+     404: b #-0x4 &lt;main+0x4&gt;
+
+Reset:
+     406: bl  #0x24e
+     40a: movw  r0, #0x0
+     &lt; .. truncated any more instructions .. &gt;
+
+DefaultHandler_:
+     656: b #-0x4 &lt;DefaultHandler_&gt;
+
+UsageFault:
+     657: strb  r7, [r4, #0x3]
+
+DefaultPreInit:
+     658: bx  lr
+
+__pre_init:
+     659: strb  r7, [r0, #0x1]
+
+__nop:
+     65a: bx  lr
+
+HardFaultTrampoline:
+     65c: mrs r0, msp
+     660: b #-0x2 &lt;HardFault_&gt;
+
+HardFault_:
+     662: b #-0x4 &lt;HardFault_&gt;
+
+HardFault:
+     663: &lt;unknown&gt;
+</code></pre>
+<h2><a class="header" href="#运行" id="运行">运行</a></h2>
+<p>下一步我们要在QEMU上运行我们的嵌入式程序!
+这次我们使用<code>hello</code>这个例子来搞事.</p>
+<p>为了方便,如下是<code>example/hello.rs</code>的源码</p>
+<pre><code class="language-rust ignore">//! Prints &quot;Hello, world!&quot; on the host console using semihosting
+
+#![no_main]
+#![no_std]
+
+use panic_halt as _;
+
+use cortex_m_rt::entry;
+use cortex_m_semihosting::{debug, hprintln};
+
+#[entry]
+fn main() -&gt; ! {
+    hprintln!(&quot;Hello, world!&quot;).unwrap();
+
+    // exit QEMU
+    // NOTE do not run this on hardware; it can corrupt OpenOCD state
+    debug::exit(debug::EXIT_SUCCESS);
+
+    loop {}
+}
+</code></pre>
+<p>这个程序使用一个叫semihosting的东西来打印信息到<em>宿主机</em>.
+等到了真正的硬件上,就需要一个调试会话才能用.</p>
+<p>让我们来开始编译这个例子:</p>
+<pre><code class="language-console">cargo build --example hello
+</code></pre>
+<p>产出的二进制文件在<code>target/thumbv7m-none-eabi/debug/examples/hello</code>.</p>
+<p>为了在QEMU上运行这个应使用如下命令:</p>
+<pre><code class="language-console">qemu-system-arm \
+  -cpu cortex-m3 \
+  -machine lm3s6965evb \
+  -nographic \
+  -semihosting-config enable=on,target=native \
+  -kernel target/thumbv7m-none-eabi/debug/examples/hello
+</code></pre>
+<pre><code class="language-text">Hello, world!
+</code></pre>
+<p>这条命令应该在输出信息后成功推出(exit code = 0).
+在*nix上你可以用如下命令确认:</p>
+<pre><code class="language-console">echo $?
+</code></pre>
+<pre><code class="language-text">0
+</code></pre>
+<p>让我们来破解QEMU命令:</p>
 
                     </main>
 

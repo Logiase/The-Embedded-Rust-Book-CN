@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html" class="active"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html" class="active"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -160,15 +160,15 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#安装工具" id="安装工具">安装工具</a></h1>
-<p>此页包含与操作系统无关的工具安装说明: </p>
+<p>此页包含与操作系统无关的工具安装说明:</p>
 <h3><a class="header" href="#rust-工具链" id="rust-工具链">Rust 工具链</a></h3>
 <p>按照<a href="https://rustup.rs">https://rustup.rs</a>的教程安装rustup.</p>
 <p><strong>NOTE</strong> 确保你有<code>1.31</code>或以上版本的编译器. <code>rustc -V</code>应该返回一个更新的版本.</p>
 <pre><code class="language-console">$ rustc -V
 rustc 1.31.1 (b6c32da9b 2018-12-18)
 </code></pre>
-<p>为了带宽和磁盘的使用情况, 默认安装只支持本机编译. 
-要想添加ARM Cortex-M的交叉编译支持, 应该选择下面其一的编译目标. 
+<p>为了带宽和磁盘的使用情况, 默认安装只支持本机编译.
+要想添加ARM Cortex-M的交叉编译支持, 应该选择下面其一的编译目标.
 对于STM32F3DISCOVERY开发板, 应该使用<code>thumbv7em-none-eabihf</code></p>
 <p>Cortex-M0, M0+, M1 (ARMv6-M 架构):</p>
 <pre><code class="language-console">$ rustup target add thumbv6m-none-eabi

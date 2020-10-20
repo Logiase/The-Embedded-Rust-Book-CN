@@ -1,0 +1,490 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>QEMU - 嵌入式Rust之书</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start/qemu.html" class="active"><strong aria-hidden="true">2.1.</strong> QEMU</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">嵌入式Rust之书</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#qemu" id="qemu">QEMU</a></h1>
+<p>我们要开始给<a href="http://www.ti.com/product/LM3S6965">LM3S6965</a>编程, <a href="http://www.ti.com/product/LM3S6965">LM3S6965</a>是一个Cortex-M3微控制器.
+我们选择这个作为开始是应为它能被QEMU<a href="https://wiki.qemu.org/Documentation/Platforms/ARM#Supported_in_qemu-system-arm">模拟</a>,所以你不必在本部分玩弄硬件,专心与工具与编程.</p>
+<p><strong>Important</strong>
+在本教程中我们使用&quot;app&quot;作为项目名.
+当你看到&quot;app&quot;这个词的时候,你应该把它换成你给你自己的项目起的名.
+或者,你就可以把你的项目名设成&quot;app&quot;.</p>
+<h2><a class="header" href="#创建一个不含标准库的rust程序" id="创建一个不含标准库的rust程序">创建一个不含标准库的Rust程序</a></h2>
+<p>我们会使用<a href="https://github.com/rust-embedded/cortex-m-quickstart"><code>cortex-m-quickstart</code></a>项目模板来生成一个新项目.
+新创建的项目会包含一个基础结构:
+一个对嵌入式Rust程序的好的开始.
+这个项目还额外包括一个有着几个不同例子的<code>example</code>文件夹.</p>
+<h3><a class="header" href="#使用-cargo-generate" id="使用-cargo-generate">使用 <code>cargo-generate</code></a></h3>
+<p>首先安装 cargo-generate</p>
+<pre><code class="language-console">cargo install cargo-generate
+</code></pre>
+<p>然后生成一个新项目</p>
+<pre><code class="language-console">cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart
+</code></pre>
+<pre><code class="language-text"> Project Name: app
+ Creating project called `app`...
+ Done! New project created /tmp/app
+</code></pre>
+<pre><code class="language-console">cd app
+</code></pre>
+<h3><a class="header" href="#使用git" id="使用git">使用<code>git</code></a></h3>
+<p>克隆仓库</p>
+<pre><code class="language-console">git clone https://github.com/rust-embedded/cortex-m-quickstart app
+cd app
+</code></pre>
+<p>然后修改<code>Cargo.toml</code>中的占位符</p>
+<pre><code class="language-toml">[package]
+authors = [&quot;{{authors}}&quot;] # &quot;{{authors}}&quot; -&gt; &quot;John Smith&quot;
+edition = &quot;2018&quot;
+name = &quot;{{project-name}}&quot; # &quot;{{project-name}}&quot; -&gt; &quot;awesome-app&quot;
+version = &quot;0.1.0&quot;
+
+# ..
+
+[[bin]]
+name = &quot;{{project-name}}&quot; # &quot;{{project-name}}&quot; -&gt; &quot;awesome-app&quot;
+test = false
+bench = false
+</code></pre>
+<h3><a class="header" href="#两者都不用" id="两者都不用">两者都不用</a></h3>
+<p>下载最新的<code>cortex-m-quickstart</code>然后解压</p>
+<pre><code class="language-console">curl -LO https://github.com/rust-embedded/cortex-m-quickstart/archive/master.zip
+unzip master.zip
+mv cortex-m-quickstart-master app
+cd app
+</code></pre>
+<p>或者你可以打开<a href="https://github.com/rust-embedded/cortex-m-quickstart"><code>cortex-m-quickstart</code></a>,然后点绿色的&quot;Clone or download&quot;,然后选择&quot;Download ZIP&quot;.</p>
+<p>然后按照第二部分&quot;使用git&quot;中修改占位符.</p>
+<h2><a class="header" href="#程序概览" id="程序概览">程序概览</a></h2>
+<p>为了方便,<code>src/main.rs</code>中已经有了很重要的部分:</p>
+<pre><code class="language-rust ignore">#![no_std]
+#![no_main]
+
+use panic_halt as _;
+
+use cortex_m_rt::entry;
+
+#[entry]
+fn main() -&gt; ! {
+    loop {
+        // your code goes here
+    }
+}
+</code></pre>
+<p>这个和标准的Rust程序不太一样,咱们来凑近一点看看.</p>
+<p><code>#![no_std]</code>声明这个程序<em>不会</em>连接到<code>std</code>标准库.
+作为代替会连接到<code>core</code></p>
+<p><code>#![no_main]</code>声明这个程序不会使用大部分Rust使用的main函数接口.
+使用<code>no_main</code>主要原因是在<code>no_std</code>中使用<code>main</code>需要每夜版的Rust.</p>
+<p><code>use panic_halt as _;</code>.这个库提供一个定义panic行为的<code>panic_handler</code>.
+我们会在<a href="panicing.html">Panicing</a>章节中讨论更多细节.</p>
+<p><a href="https://docs.rs/cortex-m-rt-macros/latest/cortex_m_rt_macros/attr.entry.html"><code>#[entry]</code></a>是一个由<a href="https://crates.io/crates/cortex-m-rt"><code>cortex-m-rt</code></a>提供的属性,用来标记程序的入口.
+当我们不用标准的<code>main</code>入口我们就需要其他的方式声明程序的入口,就是<code>#[entry]</code>.</p>
+<p><code>fn main() -&gt; !</code>.我们的程序<em>只会</em>运行在目标硬件上,所以我们不希望他停止!
+我们使用一个<a href="https://doc.rust-lang.org/rust-by-example/fn/diverging.html">发散函数</a> (<code>-&gt;!</code>符号)来确保编译期不会出问题.</p>
+<h2><a class="header" href="#交叉编译" id="交叉编译">交叉编译</a></h2>
+<p>下一步是为Cortex-M3架构进行<em>交叉</em>编译.
+在知道编译目标时(<code>$TRIPLE</code>)使用<code>cargo build --target $TRIPLE</code>会很方便.
+很幸运,模板中的<code>.cargo/config</code>已经提供了答案.</p>
+<pre><code class="language-console">tail -n6 .cargo/config
+</code></pre>
+<pre><code class="language-toml">[build]
+# Pick ONE of these compilation targets
+# target = &quot;thumbv6m-none-eabi&quot;    # Cortex-M0 and Cortex-M0+
+target = &quot;thumbv7m-none-eabi&quot;    # Cortex-M3
+# target = &quot;thumbv7em-none-eabi&quot;   # Cortex-M4 and Cortex-M7 (no FPU)
+# target = &quot;thumbv7em-none-eabihf&quot; # Cortex-M4F and Cortex-M7F (with FPU)
+</code></pre>
+<p>为了给Cortex-M3架构交叉编译,我们要使用<code>thumbv7m-none-eabi</code>.
+这个编译目标并不是自带的,如果你没有的话,现在就装:</p>
+<pre><code class="language-console">rustup target add thumbv7m-none-eabi
+</code></pre>
+<p>如果<code>thumbv7m-none-eabi</code>已经<code>.cargo/config</code>中设为默认值,那下面这两条命令是一样的</p>
+<pre><code class="language-console">cargo build --target thumbv7m-none-eabi
+cargo build
+</code></pre>
+<h2><a class="header" href="#检查" id="检查">检查</a></h2>
+<p>现在我们在<code>target/thumbv7m-none-eabi/debug/app</code>有一个非本机的ELF二进制文件.
+我们可以用<code>cargo-binutils</code>来检查它.</p>
+<p>使用<code>cargo-readobj</code>来查看ELF头来确认这是个给ARM的二进制文件.</p>
+<pre><code class="language-console">cargo readobj --bin app -- -file-headers
+</code></pre>
+<p>注意:</p>
+<ul>
+<li><code>--bin app</code>是个<code>target/$TRIPLE/debug/app</code>的语法糖</li>
+<li><code>--bin app</code>如果需要的话会重新编译</li>
+</ul>
+<pre><code class="language-text">ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0x0
+  Type:                              EXEC (Executable file)
+  Machine:                           ARM
+  Version:                           0x1
+  Entry point address:               0x405
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          153204 (bytes into file)
+  Flags:                             0x5000200
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         2
+  Size of section headers:           40 (bytes)
+  Number of section headers:         19
+  Section header string table index: 18
+</code></pre>
+<p><code>cargo-size</code>可以打印二进制文件中连接器的部分.</p>
+<pre><code class="language-console">cargo size --bin app --release -- -A
+</code></pre>
+<p>我们使用<code>--release</code>来获取优化的版本.</p>
+<pre><code class="language-text">app  :
+section             size        addr
+.vector_table       1024         0x0
+.text                 92       0x400
+.rodata                0       0x45c
+.data                  0  0x20000000
+.bss                   0  0x20000000
+.debug_str          2958         0x0
+.debug_loc            19         0x0
+.debug_abbrev        567         0x0
+.debug_info         4929         0x0
+.debug_ranges         40         0x0
+.debug_macinfo         1         0x0
+.debug_pubnames     2035         0x0
+.debug_pubtypes     1892         0x0
+.ARM.attributes       46         0x0
+.debug_frame         100         0x0
+.debug_line          867         0x0
+Total              14570
+</code></pre>
+<blockquote>
+<p>A refresher on ELF linker sections</p>
+<ul>
+<li><code>.text</code> contains the program instructions</li>
+<li><code>.rodata</code> contains constant values like strings</li>
+<li><code>.data</code> contains statically allocated variables whose initial values are
+<em>not</em> zero</li>
+<li><code>.bss</code> also contains statically allocated variables whose initial values
+<em>are</em> zero</li>
+<li><code>.vector_table</code> is a <em>non</em>-standard section that we use to store the vector
+(interrupt) table</li>
+<li><code>.ARM.attributes</code> and the <code>.debug_*</code> sections contain metadata and will
+<em>not</em> be loaded onto the target when flashing the binary.</li>
+</ul>
+</blockquote>
+<p><strong>IMPORTANT</strong>: ELF文件包含了类似Debug信息等等元数据,所以他们的在<em>磁盘上的大小</em>并<em>不能</em>
+准确的反映烧录在硬件上的大小.<em>通常</em>使用<code>cargo-size</code>来检查二进制文件真正的大小</p>
+<p><code>cargo-objdump</code>可用于反汇编二进制文件.</p>
+<pre><code class="language-console">cargo objdump --bin app --release -- --disassemble --no-show-raw-insn --print-imm-hex
+</code></pre>
+<blockquote>
+<p><strong>NOTE</strong> 如果以上命令报错<code>Unknown command line argument</code>,
+可以看看这个bug: <a href="https://github.com/rust-embedded/book/issues/269">https://github.com/rust-embedded/book/issues/269</a></p>
+<p><strong>NOTE</strong> 这个根据不同系统有所区别.新版本的rustc,LLVM还有库会生成不同的二进制文件.
+我们删节了一些说明,意识代码段变小.</p>
+</blockquote>
+<pre><code class="language-text">app:  file format ELF32-arm-little
+
+Disassembly of section .text:
+main:
+     400: bl  #0x256
+     404: b #-0x4 &lt;main+0x4&gt;
+
+Reset:
+     406: bl  #0x24e
+     40a: movw  r0, #0x0
+     &lt; .. truncated any more instructions .. &gt;
+
+DefaultHandler_:
+     656: b #-0x4 &lt;DefaultHandler_&gt;
+
+UsageFault:
+     657: strb  r7, [r4, #0x3]
+
+DefaultPreInit:
+     658: bx  lr
+
+__pre_init:
+     659: strb  r7, [r0, #0x1]
+
+__nop:
+     65a: bx  lr
+
+HardFaultTrampoline:
+     65c: mrs r0, msp
+     660: b #-0x2 &lt;HardFault_&gt;
+
+HardFault_:
+     662: b #-0x4 &lt;HardFault_&gt;
+
+HardFault:
+     663: &lt;unknown&gt;
+</code></pre>
+<h2><a class="header" href="#运行" id="运行">运行</a></h2>
+<p>下一步我们要在QEMU上运行我们的嵌入式程序!
+这次我们使用<code>hello</code>这个例子来搞事.</p>
+<p>为了方便,如下是<code>example/hello.rs</code>的源码</p>
+<pre><code class="language-rust ignore">//! Prints &quot;Hello, world!&quot; on the host console using semihosting
+
+#![no_main]
+#![no_std]
+
+use panic_halt as _;
+
+use cortex_m_rt::entry;
+use cortex_m_semihosting::{debug, hprintln};
+
+#[entry]
+fn main() -&gt; ! {
+    hprintln!(&quot;Hello, world!&quot;).unwrap();
+
+    // exit QEMU
+    // NOTE do not run this on hardware; it can corrupt OpenOCD state
+    debug::exit(debug::EXIT_SUCCESS);
+
+    loop {}
+}
+</code></pre>
+<p>这个程序使用一个叫semihosting的东西来打印信息到<em>宿主机</em>.
+等到了真正的硬件上,就需要一个调试会话才能用.</p>
+<p>让我们来开始编译这个例子:</p>
+<pre><code class="language-console">cargo build --example hello
+</code></pre>
+<p>产出的二进制文件在<code>target/thumbv7m-none-eabi/debug/examples/hello</code>.</p>
+<p>为了在QEMU上运行这个应使用如下命令:</p>
+<pre><code class="language-console">qemu-system-arm \
+  -cpu cortex-m3 \
+  -machine lm3s6965evb \
+  -nographic \
+  -semihosting-config enable=on,target=native \
+  -kernel target/thumbv7m-none-eabi/debug/examples/hello
+</code></pre>
+<pre><code class="language-text">Hello, world!
+</code></pre>
+<p>这条命令应该在输出信息后成功推出(exit code = 0).
+在*nix上你可以用如下命令确认:</p>
+<pre><code class="language-console">echo $?
+</code></pre>
+<pre><code class="language-text">0
+</code></pre>
+<p>让我们来破解QEMU命令:</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../start/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../start/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
