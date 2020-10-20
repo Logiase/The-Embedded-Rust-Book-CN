@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -406,6 +406,160 @@ $ rustup component add llvm-tools-preview
 <li><a href="intro/install/windows.html">Windows</a></li>
 <li><a href="intro/install/macos.html">macOS</a></li>
 </ul>
+<h1><a class="header" href="#linux" id="linux">Linux</a></h1>
+<p>如下是对几种发行版的安装命令</p>
+<h2><a class="header" href="#包" id="包">包</a></h2>
+<ul>
+<li>Ubuntu 18.04 及以上 / Debian stretch 及以上</li>
+</ul>
+<blockquote>
+<p><strong>NOTE</strong> <code>gdb-mutliarch</code> 是你debug你的ARM Cortex-M程序的GDB命令</p>
+</blockquote>
+<!-- Debian stretch -->
+<!-- GDB 7.12 -->
+<!-- OpenOCD 0.9.0 -->
+<!-- QEMU 2.8.1 -->
+<!-- Ubuntu 18.04 -->
+<!-- GDB 8.1 -->
+<!-- OpenOCD 0.10.0 -->
+<!-- QEMU 2.11.1 -->
+<pre><code class="language-console">sudo apt install gdb-multiarch openocd qemu-system-arm
+</code></pre>
+<ul>
+<li>Ubuntu 14.04 , 16.04</li>
+</ul>
+<blockquote>
+<p><strong>NOTE</strong> <code>arm-none-eabi-gdb</code> 是你debug你的ARM Cortex-M程序的GDB命令</p>
+</blockquote>
+<!-- Ubuntu 14.04 -->
+<!-- GDB 7.6 (!) -->
+<!-- OpenOCD 0.7.0 (?) -->
+<!-- QEMU 2.0.0 (?) -->
+<pre><code class="language-console">sudo apt install gdb-arm-none-eabi openocd qemu-system-arm
+</code></pre>
+<ul>
+<li>Fedora 27 及以上</li>
+</ul>
+<blockquote>
+<p><strong>NOTE</strong> <code>arm-none-eabi-gdb</code> 是你debug你的ARM Cortex-M程序的GDB命令</p>
+</blockquote>
+<!-- Fedora 27 -->
+<!-- GDB 7.6 (!) -->
+<!-- OpenOCD 0.10.0 -->
+<!-- QEMU 2.10.2 -->
+<pre><code class="language-console">sudo dnf install arm-none-eabi-gdb openocd qemu-system-arm
+</code></pre>
+<ul>
+<li>Arch Linux</li>
+</ul>
+<blockquote>
+<p><strong>NOTE</strong> <code>arm-none-eabi-gdb</code> 是你debug你的ARM Cortex-M程序的GDB命令</p>
+</blockquote>
+<pre><code class="language-console">sudo pacman -S arm-none-eabi-gdb qemu-arch-extra openocd
+</code></pre>
+<h2><a class="header" href="#udev规则" id="udev规则">udev规则</a></h2>
+<p>这条规则让你可以使用OpenOCD而不要root权限. </p>
+<p>在<code>/etc/udev/rules.d/70-st-link.rules</code>创建文件, 并写入以下内容.</p>
+<pre><code class="language-text"># STM32F3DISCOVERY rev A/B - ST-LINK/V2
+ATTRS{idVendor}==&quot;0483&quot;, ATTRS{idProduct}==&quot;3748&quot;, TAG+=&quot;uaccess&quot;
+
+# STM32F3DISCOVERY rev C+ - ST-LINK/V2-1
+ATTRS{idVendor}==&quot;0483&quot;, ATTRS{idProduct}==&quot;374b&quot;, TAG+=&quot;uaccess&quot;
+</code></pre>
+<p>然后重新加载udev规则</p>
+<pre><code class="language-console">sudo udevadm control --reload-rules
+</code></pre>
+<p>如果你把板子连接到了电脑, 重新连接. </p>
+<p>使用如下命令检查权限:</p>
+<pre><code class="language-console">lsusb
+</code></pre>
+<p>你应该看到如下内容:</p>
+<pre><code class="language-text">(..)
+Bus 001 Device 018: ID 0483:374b STMicroelectronics ST-LINK/V2.1
+(..)
+</code></pre>
+<p>记一下总线设备号. 用这些数字来创建如下目录<code>/dev/bus/usb/&lt;bus&gt;/&lt;device&gt;</code>. 然后链接目录:</p>
+<pre><code class="language-console">ls -l /dev/bus/usb/001/018
+</code></pre>
+<pre><code class="language-text">crw-------+ 1 root root 189, 17 Sep 13 12:34 /dev/bus/usb/001/018
+</code></pre>
+<pre><code class="language-console">getfacl /dev/bus/usb/001/018 | grep user
+</code></pre>
+<pre><code class="language-text">user::rw-
+user:you:rw-
+</code></pre>
+<p>附加在权限后面的<code>+</code>表示存在扩展权限。<code>getfacl</code>命令告诉用户<code>您</code>可以使用这个设备。</p>
+<p>现在阅读<a href="intro/install/verify.html">下一部分</a></p>
+<h1><a class="header" href="#macos" id="macos">macOS</a></h1>
+<p>所有工具都可以用<a href="http://brew.sh/">Homebrew</a>安装:</p>
+<pre><code class="language-console">$ # GDB
+$ brew install armmbed/formulae/arm-none-eabi-gcc
+
+$ # OpenOCD
+$ brew install openocd
+
+$ # QEMU
+$ brew install qemu
+</code></pre>
+<p>这就是全部了, <a href="intro/install/verify.html">下一部分</a>.</p>
+<h1><a class="header" href="#windows" id="windows">Windows</a></h1>
+<h2><a class="header" href="#arm-none-eabi-gdb" id="arm-none-eabi-gdb"><code>arm-none-eabi-gdb</code></a></h2>
+<p>ARM为Windows提供了<code>.exe</code>安装器. 从这<a href="https://xpack.github.io/openocd/">openocd</a>: https://xpack.github.io/openocd/下载<a href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads">here</a>, 然后跟着说i名安装.
+在安装结束之前选择&quot;添加到环境变量&quot;选项. 然后验证工具已经在<code>%PATH%</code>中:</p>
+<pre><code class="language-console">$ arm-none-eabi-gdb -v
+GNU gdb (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 8.1.0.20180315-git
+(..)
+</code></pre>
+<h2><a class="header" href="#openocd-1" id="openocd-1">OpenOCD</a></h2>
+<p>对Windows现在还没有官方的二进制文件, 但是如果你不想自己编译, xPack项目提供了一个二进制文件. <a href="https://xpack.github.io/openocd/">here</a>. 跟着安装说明. 然后更新你的<code>%PATH%</code>环境变量. (如果你使用快速安装<code>C:\Users\USERNAME\AppData\Roaming\xPacks\@xpack-dev-tools\openocd\0.10.0-13.1\.content\bin\</code>)</p>
+<p>验证OpenOCD已经在<code>%PATH%</code>中:</p>
+<pre><code class="language-console">$ openocd -v
+Open On-Chip Debugger 0.10.0
+(..)
+</code></pre>
+<h2><a class="header" href="#qemu" id="qemu">QEMU</a></h2>
+<p>从<a href="https://www.qemu.org/download/#windows">官方网站</a>获取QEMU. </p>
+<h2><a class="header" href="#st-link-usb驱动" id="st-link-usb驱动">ST-LINK USB驱动</a></h2>
+<p>你还需要安装<a href="http://www.st.com/en/embedded-software/stsw-link009.html">USB驱动</a>, 否则OpenOCD不能工作. 跟着安装说明并且保证你安装了正确的版本(32位或64位).</p>
+<p>这就是全部了, <a href="intro/install/verify.html">下一部分</a></p>
+<h1><a class="header" href="#验证安装" id="验证安装">验证安装</a></h1>
+<p>在这一部分我们检查需要的工具/驱动是否被正确安装. </p>
+<p>把Discovery开发板连接到电脑. Discovery有两个USB口, 使用在板子中间标着&quot;USB ST-LINK&quot;的口.</p>
+<p>也检查ST-LINK的接口是否被污染. 看如下图片, ST-LINK接口被红线圈中.</p>
+<p align="center">
+<img title="Connected discovery board" src="intro/install/../../assets/verify.jpeg">
+</p>
+<p>现在运行如下命令:</p>
+<pre><code class="language-console">$ openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
+</code></pre>
+<p>你应该会得到如下输出并且命令行被阻塞:</p>
+<pre><code class="language-text">Open On-Chip Debugger 0.10.0
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+Info : auto-selecting first available session transport &quot;hla_swd&quot;. To override use 'transport select &lt;transport&gt;'.
+adapter speed: 1000 kHz
+adapter_nsrst_delay: 100
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+none separate
+Info : Unable to match requested speed 1000 kHz, using 950 kHz
+Info : Unable to match requested speed 1000 kHz, using 950 kHz
+Info : clock speed 950 kHz
+Info : STLINK v2 JTAG v27 API v2 SWIM v15 VID 0x0483 PID 0x374B
+Info : using stlink api v2
+Info : Target voltage: 2.919881
+Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
+</code></pre>
+<p>内容并不会完全一样, 但你应该会看到有关断点和观察点的最后一行. 
+如果没什么问题那就关掉OpenOCD然后到<a href="intro/install/../../start/index.html">下一部分</a>.</p>
+<p>如果你没看到 &quot;断点&quot; 这一行, 那试试如下命令.</p>
+<pre><code class="language-console">$ openocd -f interface/stlink-v2.cfg -f target/stm32f3x.cfg
+</code></pre>
+<pre><code class="language-console">$ openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
+</code></pre>
+<p>如果有一条命令成功了, 这意味这你手上的是个旧版本Discovery. 那不会有什么问题, 除了内存设置会在后面有些不同, 到<a href="intro/install/../../start/index.html">下一部分</a>.</p>
+<p>如果这些命令都用不了, 那就试试使用root权限(像是<code>sudo openocd ...</code>). 如果命令能够执行, 那么检查一下<a href="intro/install/linux.html#udev%E8%A7%84%E5%88%99">udev规则</a>是否正确. </p>
+<p>如果到这, 你的OpenOCD还是不能用, 那就来发个<a href="https://github.com/rust-embedded/book/issues">issue</a>然后我们来帮你!</p>
 
                     </main>
 
