@@ -427,6 +427,131 @@ fn main() -&gt; ! {
 <pre><code class="language-text">0
 </code></pre>
 <p>让我们来破解QEMU命令:</p>
+<ul>
+<li>
+<p><code>qemu-system-arm</code>.这是QEMU模拟器.有几种不同的QEMU二进制文件;这个能对ARM机器进行完整的系统仿真</p>
+</li>
+<li>
+<p><code>-cpu cortex-m3</code>.这告诉QEMU去模拟一个Cortex-M3 CPU.指定CPU型号可以让我们捕获一些编译错误:
+例如,运行为带有硬件FPU的Cortex-M4F编译的程序回事QEMU执行过程中出错.</p>
+</li>
+<li>
+<p><code>-machine lm3s6965evb</code>.这告诉QEMU去模拟LM3S6965EVB,一个包含LM3S6965的评估开发板</p>
+</li>
+<li>
+<p><code>-nographic</code>.这告诉QEMu不要去启动GUI.</p>
+</li>
+<li>
+<p><code>-semihosting-config (..)</code>.这让QEMU启动semihosting. Semihosting允许仿真设备使用主机的stdout, stderr和stdin,并且在主机上创建文件</p>
+</li>
+<li>
+<p><code>-kernel $file</code>.这告诉QEMU运行哪个二进制文件</p>
+</li>
+</ul>
+<p>输入这么长的命令太麻烦了!我们可以在<code>.cargo/config</code>中配置一个自定义的运行指令.
+去掉注释:</p>
+<pre><code class="language-console">head -n3 .cargo/config
+</code></pre>
+<pre><code class="language-toml">[target.thumbv7m-none-eabi]
+# uncomment this to make `cargo run` execute programs on QEMU
+runner = &quot;qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb -nographic -semihosting-config enable=on,target=native -kernel&quot;
+</code></pre>
+<p>这个运行器只针对<code>thumbv7m-none-eabi</code>,现在执行<code>cargo run</code>会编译程序并且使用QEMU运行.</p>
+<pre><code class="language-console">cargo run --example hello --release
+</code></pre>
+<pre><code class="language-text">   Compiling app v0.1.0 (file:///tmp/app)
+    Finished release [optimized + debuginfo] target(s) in 0.26s
+     Running `qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb -nographic -semihosting-config enable=on,target=native -kernel target/thumbv7m-none-eabi/release/examples/hello`
+Hello, world!
+</code></pre>
+<h2><a class="header" href="#调试" id="调试">调试</a></h2>
+<p>调试对于嵌入式开发至关重要.让我们看看它是如何完成的.</p>
+<p>调试嵌入式设备设计<em>远程</em>调试,因为我们要调试的程序不会运行在运行调试器(GDB or LLDB)所在的机器上</p>
+<p>远程调试涉及客户端与服务端.在QEMU设置中,客户端是GDB(LLDB)进程,服务端则是运行嵌入式应用的QEMU程序.</p>
+<p>在本节中,我们使用已经编译好的<code>hello</code>例子.</p>
+<p>调试的第一步是以调试模式启动QEMU:</p>
+<pre><code class="language-console">qemu-system-arm \
+  -cpu cortex-m3 \
+  -machine lm3s6965evb \
+  -nographic \
+  -semihosting-config enable=on,target=native \
+  -gdb tcp::3333 \
+  -S \
+  -kernel target/thumbv7m-none-eabi/debug/examples/hello
+</code></pre>
+<p>这条命令不会在控制台上打印任何内容并会阻塞终端.这次我们额外传递两个命令行参数:</p>
+<ul>
+<li>
+<p><code>-gdb tcp::3333</code>.这条命令告诉QEMU在TCP 3333上等待GDB链接</p>
+</li>
+<li>
+<p><code>-S</code>.这条命令告诉QEMU在开始时冻结机器.如果没有这条命令,
+还没等我们打开调试器,程序就已经运行到了末尾.</p>
+</li>
+</ul>
+<p>下一步我们在另一个终端中启动GDB,并让它加载示例的调试符:</p>
+<pre><code class="language-console">gdb-multiarch -q target/thumbv7m-none-eabi/debug/examples/hello
+</code></pre>
+<p><strong>注意</strong>取决于你在安装章节安装了哪一个,你可能需要其他版本的gdb而不是<code>gdb-multiarch</code>.
+这可能是<code>arm-none-eabi-gdb</code>或就是<code>gdb</code>.</p>
+<p>然后在GDB Shell中连接到QEMU,它正在TCP3333上等待连接.</p>
+<pre><code class="language-console">target remote :3333
+</code></pre>
+<pre><code class="language-text">Remote debugging using :3333
+Reset () at $REGISTRY/cortex-m-rt-0.6.1/src/lib.rs:473
+473     pub unsafe extern &quot;C&quot; fn Reset() -&gt; ! {
+</code></pre>
+<p>你会看到该过程已暂停,并且程序计数器指向一个名为<code>Reset</code>的函数.
+那就是reset handler,MCU在启动时执行的.</p>
+<blockquote>
+<p>注意在某些设置中,gdb可能会提示如下信息,而不是显示<code>Reset () at $REGISTRY/cortex-m-rt-0.6.1/src/lib.rs:473</code></p>
+<p><code>core::num::bignum::Big32x40::mul_small () at src/libcore/num/bignum.rs:254</code>
+<code>    src/libcore/num/bignum.rs: No such file or directory.</code></p>
+<p>这是一个已知的故障,你可以放心的忽略它,最有可能出现在Reset()处</p>
+</blockquote>
+<p>这个reset handler最终调用我们的main函数.让我们使用断点与continue跳过.要设置断点的话,首先让我们用<code>list</code>看一下在哪断点.</p>
+<pre><code class="language-console">list main
+</code></pre>
+<p>这会展示<code>example/hello.rs</code>的源码</p>
+<pre><code class="language-text">6       use panic_halt as _;
+7
+8       use cortex_m_rt::entry;
+9       use cortex_m_semihosting::{debug, hprintln};
+10
+11      #[entry]
+12      fn main() -&gt; ! {
+13          hprintln!(&quot;Hello, world!&quot;).unwrap();
+14
+15          // exit QEMU
+</code></pre>
+<p>我们想要在第13行,&quot;Hello world!&quot;后加一个断点.我们可以使用<code>break</code>命令</p>
+<pre><code class="language-console">break 13
+</code></pre>
+<p>现在,我们可以使用<code>continue</code>命令让GDB运行我们的main函数</p>
+<pre><code class="language-console">continue
+</code></pre>
+<pre><code class="language-text">Continuing.
+
+Breakpoint 1, hello::__cortex_m_rt_main () at examples\hello.rs:13
+13          hprintln!(&quot;Hello, world!&quot;).unwrap();
+</code></pre>
+<p>我们现在很接近输出&quot;Hello, world!&quot;的那一行代码.让我们用<code>next</code>继续.</p>
+<pre><code class="language-console">next
+</code></pre>
+<pre><code class="language-text">16          debug::exit(debug::EXIT_SUCCESS);
+</code></pre>
+<p>这时你应该看到&quot;Hello, world!&quot;已经在运行<code>qemu-system-arm</code>的终端上被打印出来了.</p>
+<pre><code class="language-text">$ qemu-system-arm (..)
+Hello, world!
+</code></pre>
+<p>继续使用<code>next</code>会结束QEMU进程.</p>
+<pre><code class="language-console">next
+</code></pre>
+<pre><code class="language-text">[Inferior 1 (Remote target) exited normally]
+</code></pre>
+<p>现在你可以退出GDB会话.</p>
+<pre><code class="language-console">quit
+</code></pre>
 
                     </main>
 
