@@ -37,7 +37,7 @@ Info : Target voltage: 2.919881
 Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
 ```
 
-内容并不会完全一样, 但你应该会看到有关断点和观察点的最后一行. 
+内容并不会完全一样, 但你应该会看到有关断点和观察点的最后一行.
 如果没什么问题那就关掉OpenOCD然后到[下一部分].
 
 [下一部分]: ../../start/index.md

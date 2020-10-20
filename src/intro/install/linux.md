@@ -58,7 +58,7 @@ sudo pacman -S arm-none-eabi-gdb qemu-arch-extra openocd
 
 ## udev规则
 
-这条规则让你可以使用OpenOCD而不要root权限. 
+这条规则让你可以使用OpenOCD而不要root权限.
 
 在`/etc/udev/rules.d/70-st-link.rules`创建文件, 并写入以下内容.
 
@@ -76,7 +76,7 @@ ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", TAG+="uaccess"
 sudo udevadm control --reload-rules
 ```
 
-如果你把板子连接到了电脑, 重新连接. 
+如果你把板子连接到了电脑, 重新连接.
 
 使用如下命令检查权限:
 

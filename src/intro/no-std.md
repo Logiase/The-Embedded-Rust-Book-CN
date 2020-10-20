@@ -12,27 +12,27 @@
 
 ## 裸金属
 
-在一个裸金属环境中, 在你的程序开始之前不会有任何代码被加载. 
-没有OS提供我们没法使用标准库. 
-相反, 程序和它使用的库(Crates)可以只使用硬件(裸金属)来运行. 
-为了防止rust使用标准库, 我们使用`no_std`. 
-标准库中与平台无关的部分可以通过[libcore](https://doc.rust-lang.org/core/)获取. 
-libcore中也排除了在嵌入式环境中并不总是理想的东西. 
-这其中之一就是用于动态内存分配的内存分配器. 
-如果你需要这个或是其他功能, 会有库(Crates)提供. 
+在一个裸金属环境中, 在你的程序开始之前不会有任何代码被加载.
+没有OS提供我们没法使用标准库.
+相反, 程序和它使用的库(Crates)可以只使用硬件(裸金属)来运行.
+为了防止rust使用标准库, 我们使用`no_std`.
+标准库中与平台无关的部分可以通过[libcore](https://doc.rust-lang.org/core/)获取.
+libcore中也排除了在嵌入式环境中并不总是理想的东西.
+这其中之一就是用于动态内存分配的内存分配器.
+如果你需要这个或是其他功能, 会有库(Crates)提供.
 
 ### libstd运行时
 
-像前面说的, 使用[libstd](https://doc.rust-lang.org/std/)需要系统支持, 但是这并不只是因为[libstd](https://doc.rust-lang.org/std/)至提供了访问OS的通用的抽象的方法, 而且它还提供了一个运行时. 
-这个运行时, 除了其他事情外, 还负责设置对战一处保护, 处理命令行参数还有在调用程序的main函数之前创建主线程. 这个运行时在`no_std`环境中不可用. 
+像前面说的, 使用[libstd](https://doc.rust-lang.org/std/)需要系统支持, 但是这并不只是因为[libstd](https://doc.rust-lang.org/std/)至提供了访问OS的通用的抽象的方法, 而且它还提供了一个运行时.
+这个运行时, 除了其他事情外, 还负责设置对战一处保护, 处理命令行参数还有在调用程序的main函数之前创建主线程. 这个运行时在`no_std`环境中不可用.
 
 ## 总结
 
 `#![no_std]`是一个声明这个crate不会连接到std-crate二十core-crate的crate级别的属性.
-[libcore](https://doc.rust-lang.org/core/)是std-crate的一个与平台无关的子集, 对程序将要运行在的系统上没有任何假设(需求). 
-因此, 它为语言原语,像是float, string和slices等提供api, 和开放的处理器特性, 像是原子操作与SIMD指令. 
-然而他缺少任何设计平台集成的API. 
-由于这些属性, no\_std与[libcore](https://doc.rust-lang.org/core/)写成的代码能不能够用于任何类型的引导(stage 0)像是加载程序, 固件还有内核. 
+[libcore](https://doc.rust-lang.org/core/)是std-crate的一个与平台无关的子集, 对程序将要运行在的系统上没有任何假设(需求).
+因此, 它为语言原语,像是float, string和slices等提供api, 和开放的处理器特性, 像是原子操作与SIMD指令.
+然而他缺少任何设计平台集成的API.
+由于这些属性, no\_std与[libcore](https://doc.rust-lang.org/core/)写成的代码能不能够用于任何类型的引导(stage 0)像是加载程序, 固件还有内核.
 
 ### 概述
 
@@ -53,4 +53,5 @@ libcore中也排除了在嵌入式环境中并不总是理想的东西.
 [alloc-cortex-m]: https://github.com/rust-embedded/alloc-cortex-m
 
 ## See Also
+
 * [RFC-1184](https://github.com/rust-lang/rfcs/blob/master/text/1184-stabilize-no_std.md)

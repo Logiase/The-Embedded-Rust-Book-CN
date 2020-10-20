@@ -2,7 +2,7 @@
 
 ## `arm-none-eabi-gdb`
 
-ARM为Windows提供了`.exe`安装器. 从这[openocd]: https://xpack.github.io/openocd/下载[here][gcc], 然后跟着说i名安装.
+ARM为Windows提供了`.exe`安装器. 从这[openocd]: <https://xpack.github.io/openocd/>下载[here][gcc], 然后跟着说i名安装.
 在安装结束之前选择"添加到环境变量"选项. 然后验证工具已经在`%PATH%`中:
 
 ``` console
@@ -29,7 +29,7 @@ Open On-Chip Debugger 0.10.0
 
 ## QEMU
 
-从[官方网站][qemu]获取QEMU. 
+从[官方网站][qemu]获取QEMU.
 
 [qemu]: https://www.qemu.org/download/#windows
 
