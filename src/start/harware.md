@@ -222,3 +222,89 @@ Info : halted: PC: 0x08000a0c
 Info : halted: PC: 0x08000d70
 Info : halted: PC: 0x08000d72
 ```
+
+发出另一个`next`命令会使程序执行`debug::exit()`.这会触发断点并终止程序:
+
+``` console
+(gdb) next
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x0800141a in __syscall ()
+```
+
+这也会使以下内容出现在OpenOCD控制台上:
+
+``` console
+$ openocd
+(..)
+Info : halted: PC: 0x08001188
+semihosting: *** application exited ***
+Warn : target not halted
+Warn : target not halted
+target halted due to breakpoint, current mode: Thread
+xPSR: 0x21000000 pc: 0x08000d76 msp: 0x20009fc0, semihosting
+```
+
+但是,mcu上的进程不没有终止,你可以使用`continue`或类似的命令恢复进程.
+
+你现在可以用`quit`来退出GDB
+
+``` console
+(gdb) quit
+```
+
+现在调试需要更多的步骤了,那让我们来把这些步骤打包成一个叫`openocd.gdb`的GDB脚本.
+这个文件在`cargo generate`步骤中已经生成了,按理说不用做修改就能用.让我们看一下:
+
+``` console
+$ cat openocd.gdb
+```
+
+``` text
+target extended-remote :3333
+
+# print demangled symbols
+set print asm-demangle on
+
+# detect unhandled exceptions, hard faults and panics
+break DefaultHandler
+break HardFault
+break rust_begin_unwind
+
+monitor arm semihosting enable
+
+load
+
+# start the process but immediately halt the processor
+stepi
+```
+
+现在运行`<gdb> -x openocd.gdb target/thumbv7em-none-eabihf/debug/examples/hello`会自动连接GDB到OpenOCD,启动semihosting,然后烧录程序并启动.
+
+``` console
+$ head -n10 .cargo/config
+```
+
+``` toml
+[target.thumbv7m-none-eabi]
+# uncomment this to make `cargo run` execute programs on QEMU
+# runner = "qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb -nographic -semihosting-config enable=on,target=native -kernel"
+
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+# uncomment ONE of these three option to make `cargo run` start a GDB session
+# which option to pick depends on your system
+runner = "arm-none-eabi-gdb -x openocd.gdb"
+# runner = "gdb-multiarch -x openocd.gdb"
+# runner = "gdb -x openocd.gdb"
+```
+
+``` console
+$ cargo run --example hello
+(..)
+Loading section .vector_table, size 0x400 lma 0x8000000
+Loading section .text, size 0x1e70 lma 0x8000400
+Loading section .rodata, size 0x61c lma 0x8002270
+Start address 0x800144e, load size 10380
+Transfer rate: 17 KB/sec, 3460 bytes/write.
+(gdb)
+```
