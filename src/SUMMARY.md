@@ -11,3 +11,4 @@
     - [验证安装](./intro/install/verify.md)
 - [开始](./start/index.md)
   - [QEMU](./start/qemu.md)
+  - [硬件](./start/harware.md)
