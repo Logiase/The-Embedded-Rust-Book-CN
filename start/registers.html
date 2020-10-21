@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>开始 - 嵌入式Rust之书</title>
+        <title>内存映射寄存器 - 嵌入式Rust之书</title>
         
         
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../start/index.html" class="active"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="../start/harware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../start/registers.html"><strong aria-hidden="true">2.3.</strong> 内存映射寄存器</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="../start/harware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../start/registers.html" class="active"><strong aria-hidden="true">2.3.</strong> 内存映射寄存器</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,25 +163,95 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#开始" id="开始">开始</a></h1>
-<p>在这一部分, 我们会带你写代码, 编译, 烧录, 调试嵌入式程序.
-我们会教你QEMU的基础, 一个开源的硬件模拟器, 因此你能不用硬件来运行大部分例子.
-很自然的, 唯一需要硬件的章节就是<a href="./hardware.html">硬件</a>, 在这部分我们使用OpenOCD在<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a></p>
+                        <h1><a class="header" href="#内存映射寄存器" id="内存映射寄存器">内存映射寄存器</a></h1>
+<p>嵌入式系统只能通过执行常规的Rust代码并在RAM中移动数据来达到目标.
+如果我们想从外部读取信息到系统,或从系统中获取信息(例如,点亮LED,检测到按钮按下,或者与总线上某种设备进行通信),那我们必须要接触外设和&quot;内存映射寄存器&quot;</p>
+<p>您可能会发现,已经在以下级别之一编写了访问微控制器外围设备所需的代码:</p>
+<p align="center">
+<img title="Common crates" src="../assets/crates.png">
+</p>
+<ul>
+<li>Micro-architecture Crate - 这种库可处理你使用的mcu的通用部分,以及使用该内核的所有mcu的通用的外设.例如,<a href="https://crates.io/crates/cortex-m">cortex-m</a>可以提供启用禁用中断的功能,这些功能对所有Cortex-m处理器都适用.他还可以让你访问所有基于Cortex-m微控制器所带的'SysTick'外设.</li>
+<li>Peripheral Access Crate (PAC) - 这种库是根据你的mcu型号来提供一个对内存包装寄存器的简单包装.例如<a href="https://crates.io/crates/tm4c123x">tm4c123x</a>对应Texas Instruments Tiva-C TM4C123系列,<a href="https://crates.io/crates/stm32f30x">stm32f30x</a>对应ST-Micro STM32F30x系列.在这里你将按照mcu的参考手册中给出的每个外设的操作说明直接操作寄存器.</li>
+<li>HAL Crate - 这些库给实现<a href="https://crates.io/crates/embedded-hal">embedded-hal</a>的一些trait,来为你的mcu提供一个更加用户友好的API.例如,这些库可能会提供一个<code>Serial</code> Struct,它的构造函数使用适当GPIO与波特率,并提供某种<code>write_byte</code>函数来发送数据.有关嵌入式HAL的更多信息,请参考<a href="../portability/index.html">移植</a></li>
+<li>Board Crate - 这些库通过预先配置好的外设和GPIO引脚来让你使用特定的开发板,像是<a href="https://crates.io/crates/stm32f3-discovery">stm32f3-discovery</a>对STM32F3DISCOVERY,这些库比HAL库更进一步.</li>
+</ul>
+<h2><a class="header" href="#board-crate" id="board-crate">Board Crate</a></h2>
+<p>如果你在嵌入式系统方面是个萌新,拿使用Board Crate是一个很好的起点.
+他们很好的抽象了我们在学习过程中会遇到的硬件细节,并简化像是开关LED的操作.
+他们暴露的函数在不同开发板之间差别很大.由于本书旨在不涉及硬件的细节,所以本书不会使用board crate.</p>
+<p>如果你想使用STM32F3DISCOVERY进行试验,那很推荐你去看一看<a href="https://crates.io/crates/stm32f3-discovery">stm32f3-discovery</a> board crate,这个库提供了一些列功能,包括开关LED,使用指南针,蓝牙等.
+<a href="https://rust-embedded.github.io/discovery/">Discovery</a>这本书提供了一个使用这个board crate很好的介绍.</p>
+<p>但是如果你使用一个没有board crate的系统,或者你需要使用现有board crate没有提供的功能,请从底部开始阅读micro-architecture.</p>
+<h2><a class="header" href="#micro-architecture-crate" id="micro-architecture-crate">Micro-architecture crate</a></h2>
+<p>让我们看一下所有基于Cortex-M的微控制器共有的SysTick外设.我们可以在<a href="https://crates.io/crates/cortex-m">cortex-m</a>中找到一个非常非常低级的API,我们能这么用:</p>
+<pre><code class="language-rust ignore">#![no_std]
+#![no_main]
+use cortex_m::peripheral::{syst, Peripherals};
+use cortex_m_rt::entry;
+use panic_halt as _;
+
+#[entry]
+fn main() -&gt; ! {
+    let peripherals = Peripherals::take().unwrap();
+    let mut systick = peripherals.SYST;
+    systick.set_clock_source(syst::SystClkSource::Core);
+    systick.set_reload(1_000);
+    systick.clear_current();
+    systick.enable_counter();
+    while !systick.has_wrapped() {
+        // Loop
+    }
+
+    loop {}
+}
+</code></pre>
+<p>SYST struct的函数与ARM Technical Reference Manual定义的很相似.
+此API中没有没有关于<code>延迟X毫秒</code>的函数 - 我们得使用<code>while</code>循环
+来大致的实现这个功能.注意,我们在调用<code>Peripherals::take()</code>函数前,
+我们没法使用<code>SYST</code> - 这是一个特殊的历程,可以确保整个程序中只有一个<code>SYST</code>.
+关于更多,可以参考<a href="../peripherals/index.html">Peripherals</a>章节</p>
+<h2><a class="header" href="#使用peripheral-access-crate-pac" id="使用peripheral-access-crate-pac">使用Peripheral Access Crate (PAC)</a></h2>
+<p>如果我们把自己束缚在Cortex-M自带的基本外设上,那注定我们的嵌入式之路是走不远的.
+在某个时候,我们需要编写一些特定于我们正在使用的硬件的代码.
+在这个实例中,先假设我们有一个德州仪器(TI)的TM4C123,一个有256KiB闪存,80MHz的中等的Cortex-M4微控制器.
+我们打算使用<a href="https://crates.io/crates/tm4c123x">tm4c123x</a>库来玩这块芯片.</p>
+<pre><code class="language-rust ignore">#![no_std]
+#![no_main]
+
+use panic_halt as _; // panic handler
+
+use cortex_m_rt::entry;
+use tm4c123x;
+
+#[entry]
+pub fn init() -&gt; (Delay, Leds) {
+    let cp = cortex_m::Peripherals::take().unwrap();
+    let p = tm4c123x::Peripherals::take().unwrap();
+
+    let pwm = p.PWM0;
+    pwm.ctl.write(|w| w.globalsync0().clear_bit());
+    // Mode = 1 =&gt; Count up/down mode
+    pwm._2_ctl.write(|w| w.enable().set_bit().mode().set_bit());
+    pwm._2_gena.write(|w| w.actcmpau().zero().actcmpad().one());
+    // 528 cycles (264 up and down) = 4 loops per video line (2112 cycles)
+    pwm._2_load.write(|w| unsafe { w.load().bits(263) });
+    pwm._2_cmpa.write(|w| unsafe { w.compa().bits(64) });
+    pwm.enable.write(|w| w.pwm4en().set_bit());
+}
+
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../intro/install/verify.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../start/harware.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
-                        
-                            <a rel="next" href="../start/qemu.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -191,15 +261,11 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../intro/install/verify.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../start/harware.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
-                
-                    <a rel="next" href="../start/qemu.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             </nav>
 
