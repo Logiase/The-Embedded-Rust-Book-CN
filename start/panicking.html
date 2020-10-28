@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>开始 - 嵌入式Rust之书</title>
+        <title>Panicking - 嵌入式Rust之书</title>
         
         
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../start/index.html" class="active"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="../start/harware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../start/registers.html"><strong aria-hidden="true">2.3.</strong> 内存映射寄存器</a></li><li class="chapter-item expanded "><a href="../start/semihosting.html"><strong aria-hidden="true">2.4.</strong> Semihosting</a></li><li class="chapter-item expanded "><a href="../start/panicking.html"><strong aria-hidden="true">2.5.</strong> Panicking</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="../start/harware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../start/registers.html"><strong aria-hidden="true">2.3.</strong> 内存映射寄存器</a></li><li class="chapter-item expanded "><a href="../start/semihosting.html"><strong aria-hidden="true">2.4.</strong> Semihosting</a></li><li class="chapter-item expanded "><a href="../start/panicking.html" class="active"><strong aria-hidden="true">2.5.</strong> Panicking</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,25 +163,81 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#开始" id="开始">开始</a></h1>
-<p>在这一部分, 我们会带你写代码, 编译, 烧录, 调试嵌入式程序.
-我们会教你QEMU的基础, 一个开源的硬件模拟器, 因此你能不用硬件来运行大部分例子.
-很自然的, 唯一需要硬件的章节就是<a href="./hardware.html">硬件</a>, 在这部分我们使用OpenOCD在<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a></p>
+                        <h1><a class="header" href="#恐慌" id="恐慌">恐慌</a></h1>
+<p>Panicking是Rust语言的核心一部分.
+像是索引一样的内置操作会在运行时检查安全性.
+当尝试超出索引范围时, 结果就会导致panic.</p>
+<p>在标准库之中, 恐慌有一个定义的行为: 除非用户选择在出现恐慌时结束程序, 否则它将展开出现恐慌行为的线程的堆栈.</p>
+<p>然而, 在没有使用标准库的程序中, 恐慌行为没有定义.
+可以使用<code>#[panic_handler]</code>来指定恐慌行为.
+这个函数在整个程序的语法树中只能出现<em>一次</em>, 并且必须有如下标志: <code>fn(&amp;PanicInfo) -&gt; !</code>, <a href="https://doc.rust-lang.org/core/panic/struct.PanicInfo.html"><code>PanicInfo</code></a>是一个包含了恐慌位置信息的结构体.</p>
+<p>鉴于嵌入式系统的范围从面型用户到所以安全至关重要(不崩溃), 所以没有任何一种适用于全部情况的恐慌行为, 但是有很多经常使用的.
+这些库中已经定义了<code>#[panic_handler]</code>函数. 这有几个例子:</p>
+<ul>
+<li><a href="https://crates.io/crates/panic-abort"><code>panic-abort</code></a>. 恐慌使指令停止运行.</li>
+<li><a href="https://crates.io/crates/panic-halt"><code>panic-halt</code></a>. 恐慌使当前程序或线程进入一个无限循环.</li>
+<li><a href="https://crates.io/crates/panic-itm"><code>panic-itm</code></a>. 使用ITM(Cortex-M的一种外设)记录恐慌消息.</li>
+<li><a href="https://crates.io/crates/panic-semihosting"><code>panic-semihosting</code></a>. 使用semihosting技术将恐慌信息输出到主机上.</li>
+</ul>
+<p>你可以在crates.io上使用关键词<a href="https://crates.io/keywords/panic-handler"><code>panic-handler</code></a>搜索到更多库.</p>
+<p>程序可以通过简单的链接到其中一个库来选择一个恐慌行为.
+恐慌行为在应用程序的源代码中表示为一行代码这一事实不仅可用作文档, 而且还可以根据编译配置文件用于更改恐慌行为.
+例如:</p>
+<pre><code class="language-rust ignore">#![no_main]
+#![no_std]
+
+// dev profile: easier to debug panics; can put a breakpoint on `rust_begin_unwind`
+#[cfg(debug_assertions)]
+use panic_halt as _;
+
+// release profile: minimize the binary size of the application
+#[cfg(not(debug_assertions))]
+use panic_abort as _;
+
+// ..
+</code></pre>
+<p>在这个例子中我们选择在开发时(<code>cargo build</code>)我们选择<code>panic-halt</code>, 但在发布时(<code>cargo build --release</code>)我们选择<code>panic-abort</code>.</p>
+<blockquote>
+<p><code>use panic_abort as _;</code>使用<code>use</code>语句来确保在最终二进制产物中<code>panic_abort</code>被包含进去, 同时也让编译器知道我们不会使用其中的任何内容.
+没有<code>as _</code>的话, 编译器会给我们一个Warn来告诉我们有个没有使用的导入库.
+又是你会看见<code>extern crate panic_abort</code>, 这是一个在2018版本之前的旧版本的写法, 现在仅仅应用于&quot;sysroot&quot;库(那些随着Rust一起发布的库), 像是 <code>proc_macro</code>, <code>alloc</code>, <code>std</code>, 还有 <code>test</code>.</p>
+</blockquote>
+<h2><a class="header" href="#一个例子" id="一个例子">一个例子</a></h2>
+<p>这有一个试图越界数组的例子.
+最终结果会导致恐慌.</p>
+<pre><code class="language-rust ignore">#![no_main]
+#![no_std]
+
+use panic_semihosting as _;
+
+use cortex_m_rt::entry;
+
+#[entry]
+fn main() -&gt; ! {
+    let xs = [0, 1, 2];
+    let i = xs.len() + 1;
+    let _y = xs[i]; // out of bounds access
+
+    loop {}
+}
+</code></pre>
+<p>这个例子选择使用semihosting技术输出信息到主机的<code>panic-semihosting</code>.</p>
+<pre><code class="language-console">$ cargo run
+     Running `qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb (..)
+panicked at 'index out of bounds: the len is 3 but the index is 4', src/main.rs:12:13
+</code></pre>
+<p>你可以试着把恐慌行为改成<code>panic-halt</code>来确认一下还会不会有信息输出.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../intro/install/verify.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../start/semihosting.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
-                        
-                            <a rel="next" href="../start/qemu.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -191,15 +247,11 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../intro/install/verify.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../start/semihosting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
-                
-                    <a rel="next" href="../start/qemu.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             </nav>
 
