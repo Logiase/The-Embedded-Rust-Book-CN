@@ -51,3 +51,81 @@ $ cargo run
 Hello, world!
 ```
 
+还有一个`exit`的semihosting操作, 用来结束QEMU进程.
+重要提示: 请**不要**在硬件上使用`debug::exit`, 此函数会破坏OpenOCD会话, 只有重启才能继续调试.
+
+```rust,ignore
+#![no_main]
+#![no_std]
+
+use panic_halt as _;
+
+use cortex_m_rt::entry;
+use cortex_m_semihosting::debug;
+
+#[entry]
+fn main() -> ! {
+    let roses = "blue";
+
+    if roses == "red" {
+        debug::exit(debug::EXIT_SUCCESS);
+    } else {
+        debug::exit(debug::EXIT_FAILURE);
+    }
+
+    loop {}
+}
+```
+
+``` console
+$ cargo run
+     Running `qemu-system-arm (..)
+
+$ echo $?
+1
+```
+
+最后一个提示: 你可以将panic行为设置为`exit(EXIT_FAILURE)`. 这可以让你写的`no_std`测试在QEMU上运行.
+
+为了方便, `panic-semihosting`有一个"exit"的feature, 启用它可以在`exit(EXIT_FAILURE)`后把panic信息输出到主机stderr上.
+
+```rust,ignore
+#![no_main]
+#![no_std]
+
+use panic_semihosting as _; // features = ["exit"]
+
+use cortex_m_rt::entry;
+use cortex_m_semihosting::debug;
+
+#[entry]
+fn main() -> ! {
+    let roses = "blue";
+
+    assert_eq!(roses, "red");
+
+    loop {}
+}
+```
+
+``` console
+$ cargo run
+     Running `qemu-system-arm (..)
+panicked at 'assertion failed: `(left == right)`
+  left: `"blue"`,
+ right: `"red"`', examples/hello.rs:15:5
+
+$ echo $?
+1
+```
+
+**注意**: 编辑你的`Cargo.toml`以启用`panic-semihosting`的该特性:
+
+``` toml
+panic-semihosting = { version = "VERSION", features = ["exit"] }
+```
+
+有关feature的更多信息请参考[`specifying dependencies`]
+
+[`specifying dependencies`]:
+https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html
