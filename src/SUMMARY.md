@@ -14,3 +14,4 @@
   - [硬件](./start/harware.md)
   - [内存映射寄存器](./start/registers.md)
   - [Semihosting](./start/semihosting)
+  - [Panicking](./start/panicking.md)
