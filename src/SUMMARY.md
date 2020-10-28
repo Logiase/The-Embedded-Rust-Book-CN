@@ -15,3 +15,4 @@
   - [内存映射寄存器](./start/registers.md)
   - [Semihosting](./start/semihosting)
   - [Panicking](./start/panicking.md)
+  - [异常](./start/exception.md)
