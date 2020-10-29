@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="start/harware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="start/registers.html"><strong aria-hidden="true">2.3.</strong> 内存映射寄存器</a></li><li class="chapter-item expanded "><a href="start/semihosting.html"><strong aria-hidden="true">2.4.</strong> Semihosting</a></li><li class="chapter-item expanded "><a href="start/panicking.html"><strong aria-hidden="true">2.5.</strong> Panicking</a></li><li class="chapter-item expanded "><a href="start/exception.html"><strong aria-hidden="true">2.6.</strong> 异常</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="start/harware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="start/registers.html"><strong aria-hidden="true">2.3.</strong> 内存映射寄存器</a></li><li class="chapter-item expanded "><a href="start/semihosting.html"><strong aria-hidden="true">2.4.</strong> Semihosting</a></li><li class="chapter-item expanded "><a href="start/panicking.html"><strong aria-hidden="true">2.5.</strong> Panicking</a></li><li class="chapter-item expanded "><a href="start/exception.html"><strong aria-hidden="true">2.6.</strong> 异常</a></li><li class="chapter-item expanded "><a href="start/interrupts.html"><strong aria-hidden="true">2.7.</strong> 中断</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -1436,7 +1436,232 @@ panicked at 'index out of bounds: the len is 3 but the index is 4', src/main.rs:
 <p>你可以试着把恐慌行为改成<code>panic-halt</code>来确认一下还会不会有信息输出.</p>
 <h1><a class="header" href="#异常" id="异常">异常</a></h1>
 <p>异常与中断是一种硬件机制, 处理器通过该机制来来异步处理事件或错误(例如执行无效指令).
-异常意味着抢占</p>
+异常意味着抢占, 涉及异常处理程序, 这些子处理程序使为了响应触发事件的信号而执行的子线程.</p>
+<p><code>cortex-m-rt</code>库提供了一个<a href="https://docs.rs/cortex-m-rt-macros/latest/cortex_m_rt_macros/attr.exception.html"><code>exception</code></a>这个属性用来定义异常处理函数.</p>
+<pre><code class="language-rust ignore">// Exception handler for the SysTick (System Timer) exception
+#[exception]
+fn SysTick() {
+    // ..
+}
+</code></pre>
+<p>除了<code>exception</code>这个属性, 这个函数看着就像一个普通函数, 但有一点不同: <code>exception</code>处理函数不能被普通程序调用.
+跟着前一个例子, 调用<code>SysTick</code>会导致编译错误.</p>
+<p>此行为是可以预期的, 并且需要提供一个特性: 定义在<code>exception</code>处理中的<code>static mut</code>变量必须能够<em>安全</em>使用.</p>
+<pre><code class="language-rust ignore">#[exception]
+fn SysTick() {
+    static mut COUNT: u32 = 0;
+
+    // `COUNT` has transformed to type `&amp;mut u32` and it's safe to use
+    *COUNT += 1;
+}
+</code></pre>
+<p>和你知道的一样, 在函数中使用<code>static mut</code>变量让其<a href="https://en.wikipedia.org/wiki/Reentrancy_(computing)"><em>不可重入</em></a>.
+从多个异常或中断函数中, 或从<code>main</code>和一个或多个异常或中断处理函数中直接或间接调用可重入函数是未定义行为.</p>
+<p>安全Rust必须不能导致未定义行为, 所以可重入函数必须要标记为<code>unsafe</code>.
+但是我只是告诉我们的<code>exception</code>处理函数可以安全的使用<code>static mut</code>变量.
+这怎么可能? 但这是可能的, 因为<code>exception</code>处理不能被软件调用, 所以也就不可能重入.</p>
+<blockquote>
+<p>注意, <code>exception</code>属性将函数中的静态变量定义包装到<code>unsafe</code>中, 并为我们提供了具有相同名称的<code>&amp;mut</code>引用, 从而在函数内部转换他们.
+因此, 我们可以使用<code>*</code>解引用, 来访问变量的值, 而无需把他们放在<code>unsafe</code>中.</p>
+</blockquote>
+<h2><a class="header" href="#一个完整的例子" id="一个完整的例子">一个完整的例子</a></h2>
+<p>这是一个使用系统计时器每秒来触发一个<code>SysTick</code>异常的例子.
+<code>SysTick</code>异常处理函数使用<code>COUNT</code>变量追踪一共触发了多少次, 并且用<code>semihosting</code>把<code>COUNT</code>的值输出到主机上.</p>
+<blockquote>
+<p><strong>NOTE</strong> 你可以在任何Cortex-M设备上运行, 也可以在QEMU上运行.</p>
+</blockquote>
+<pre><code class="language-rust ignore">#![deny(unsafe_code)]
+#![no_main]
+#![no_std]
+
+use panic_halt as _;
+
+use core::fmt::Write;
+
+use cortex_m::peripheral::syst::SystClkSource;
+use cortex_m_rt::{entry, exception};
+use cortex_m_semihosting::{
+    debug,
+    hio::{self, HStdout},
+};
+
+#[entry]
+fn main() -&gt; ! {
+    let p = cortex_m::Peripherals::take().unwrap();
+    let mut syst = p.SYST;
+
+    // configures the system timer to trigger a SysTick exception every second
+    syst.set_clock_source(SystClkSource::Core);
+    // this is configured for the LM3S6965 which has a default CPU clock of 12 MHz
+    syst.set_reload(12_000_000);
+    syst.clear_current();
+    syst.enable_counter();
+    syst.enable_interrupt();
+
+    loop {}
+}
+
+#[exception]
+fn SysTick() {
+    static mut COUNT: u32 = 0;
+    static mut STDOUT: Option&lt;HStdout&gt; = None;
+
+    *COUNT += 1;
+
+    // Lazy initialization
+    if STDOUT.is_none() {
+        *STDOUT = hio::hstdout().ok();
+    }
+
+    if let Some(hstdout) = STDOUT.as_mut() {
+        write!(hstdout, &quot;{}&quot;, *COUNT).ok();
+    }
+
+    // IMPORTANT omit this `if` block if running on real hardware or your
+    // debugger will end in an inconsistent state
+    if *COUNT == 9 {
+        // This will terminate the QEMU process
+        debug::exit(debug::EXIT_SUCCESS);
+    }
+}
+</code></pre>
+<pre><code class="language-console">$ tail -n5 Cargo.toml
+</code></pre>
+<pre><code class="language-toml">[dependencies]
+cortex-m = &quot;0.5.7&quot;
+cortex-m-rt = &quot;0.6.3&quot;
+panic-halt = &quot;0.2.0&quot;
+cortex-m-semihosting = &quot;0.3.1&quot;
+</code></pre>
+<pre><code class="language-console">$ cargo run --release
+     Running `qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb (..)
+123456789
+</code></pre>
+<p>如果你使用Discovery开发板, 你会在OpenOCD上看到输出. 另外, 直到计数达到9才会停止.</p>
+<h2><a class="header" href="#默认异常处理" id="默认异常处理">默认异常处理</a></h2>
+<p><code>exception</code>属性实际上做的是用一个特定的异常处理函数覆盖默认的异常处理函数.
+如果你不覆盖的话, 异常处理程序是<code>DefaultHandler</code>, 内容如下:</p>
+<pre><code class="language-rust ignore">fn DefaultHandler() {
+    loop {}
+}
+</code></pre>
+<p>这个函数是<code>cortex-m-rt</code>提供的, 并且被标记为<code>#[no_mangle]</code>, 所以你可以在&quot;DefaultHandler&quot;中打一个断点来捕获<em>未处理</em>的异常.</p>
+<p>也使用<code>exception</code>属性来覆盖<code>DefaultHandler</code></p>
+<pre><code class="language-rust ignore">#[exception]
+fn DefaultHandler(irqn: i16) {
+    // custom default handler
+}
+</code></pre>
+<p><code>irqn</code>参数是正在处理的异常.
+负数表示正在处理的是Cortex-M异常.
+0或正数表示正在处理设备特定的异常, 又被叫做中断.</p>
+<h2><a class="header" href="#硬件故障处理" id="硬件故障处理">硬件故障处理</a></h2>
+<p><code>HardFault</code>有一点特殊.
+当程序进入无效状态的时候, 会引发此异常, 所以这个函数不会<em>return</em>, 因为这可能会导致未定义行为.
+另外, 在调用用户定义的<code>HardFault</code>函数时, 运行时会会做一些方便debug的工作.</p>
+<p>结果是<code>HardFault</code>函数必须要像这样: <code>fn(&amp;ExceptionFrame) -&gt; !</code>.
+函数的参数是一个指向由异常入栈的寄存器的指针.
+这些寄存器是出现异常时处理器状态的快照, 可以用来诊断故障.</p>
+<p>这有一个产生非法操作的例子: 读取不存在的内存地址.</p>
+<blockquote>
+<p><strong>NOTE</strong> 该程序在QEMU上不起作用, 不会崩溃, 因为<code>qemu-system-arm -machine lm3s6965evb</code>不会检查内存, 并且会在访问无效地址时返回一个0.</p>
+</blockquote>
+<pre><code class="language-rust ignore">#![no_main]
+#![no_std]
+
+use panic_halt as _;
+
+use core::fmt::Write;
+use core::ptr;
+
+use cortex_m_rt::{entry, exception, ExceptionFrame};
+use cortex_m_semihosting::hio;
+
+#[entry]
+fn main() -&gt; ! {
+    // read a nonexistent memory location
+    unsafe {
+        ptr::read_volatile(0x3FFF_FFFE as *const u32);
+    }
+
+    loop {}
+}
+
+#[exception]
+fn HardFault(ef: &amp;ExceptionFrame) -&gt; ! {
+    if let Ok(mut hstdout) = hio::hstdout() {
+        writeln!(hstdout, &quot;{:#?}&quot;, ef).ok();
+    }
+
+    loop {}
+}
+</code></pre>
+<p><code>HardFault</code>函数打印<code>ExceptionFrame</code>的值.
+如果你运行它, 会在OpenOCD上看到:</p>
+<pre><code class="language-console">$ openocd
+(..)
+ExceptionFrame {
+    r0: 0x3ffffffe,
+    r1: 0x00f00000,
+    r2: 0x20000000,
+    r3: 0x00000000,
+    r12: 0x00000000,
+    lr: 0x080008f7,
+    pc: 0x0800094a,
+    xpsr: 0x61000000
+}
+</code></pre>
+<p><code>pc</code>是当前程序计数器发生异常时的值, 指向触发异常的指令.</p>
+<p>如果你看看程序的反汇编:</p>
+<pre><code class="language-console">$ cargo objdump --bin app --release -- -d --no-show-raw-insn --print-imm-hex
+(..)
+ResetTrampoline:
+ 8000942:       movw    r0, #0xfffe
+ 8000946:       movt    r0, #0x3fff
+ 800094a:       ldr     r0, [r0]
+ 800094c:       b       #-0x4 &lt;ResetTrampoline+0xa&gt;
+</code></pre>
+<p>你可以在反汇编中找到程序计数器<code>0x0800094a</code>的值.
+看这, 有个加载行为 (<code>ldr r0, [r0]</code> ) 导致异常.
+<code>ExceptionFrame</code>中<code>r0</code>字段将告诉你此时寄存器<code>r0</code>的值为<code>0x3fff_fffe</code></p>
+<h1><a class="header" href="#中断" id="中断">中断</a></h1>
+<p>中断在许多方面与异常有区别, 但是他们的操作与使用又在很大程度上相同, 并且他们也由同一中断控制器控制.
+尽管异常是由Cortex-M架构定义的, 但是在中断的命名和功能上确实供应商(或芯片)确定的.</p>
+<p>中断有很大的灵活性, 在尝试使用高级方法使用他们前, 应该考虑这些灵活性.
+在本书中我们不会介绍用法, 但请牢记下面几点:</p>
+<ul>
+<li>中断具有可编程的优先级, 可以用来确定他们处理程序的顺序.</li>
+<li>中断可以嵌套, 可以抢占, 就是中断处理过程可能被另一个更高优先级的中断打断.</li>
+<li>通常需要处理掉触发中断的原因, 以防止无限进入中断.</li>
+</ul>
+<p>运行时的常规初始化步骤始终相同:</p>
+<ul>
+<li>设置外设来启用中断.</li>
+<li>在中断处理器中设置优先级.</li>
+<li>在终端控制器中启用中断函数.</li>
+</ul>
+<p>和异常一样, <code>cortex-m-rt</code>提供了一个<a href="https://docs.rs/cortex-m-rt-macros/0.1.5/cortex_m_rt_macros/attr.interrupt.html"><code>interrupt</code></a>属性来定义中断处理函数.
+可用的中断(还有中断向量表中的位置)通常使用<code>svd2rust</code>由SVD文件自动生成.</p>
+<pre><code class="language-rust ignore">// Interrupt handler for the Timer2 interrupt
+#[interrupt]
+fn TIM2() {
+    // ..
+    // Clear reason for the generated interrupt request
+}
+</code></pre>
+<p>中断处理函数看起来就像普通函数一样(除了缺少参数).
+但是由于特殊的调用约定, 他们不能直接被固件的其他部分直接调用.
+但是可以在软件中生成中断请求, 以触发对中断函数的转移.</p>
+<p>与异常处理类似, 也可以在中断处理函数中定义<code>static mut</code>变量来保持状态<em>安全</em>.</p>
+<pre><code class="language-rust ignore">#[interrupt]
+fn TIM2() {
+    static mut COUNT: u32 = 0;
+
+    // `COUNT` has type `&amp;mut u32` and it's safe to use
+    *COUNT += 1;
+}
+</code></pre>
+<p>有关此机制的更加详细的说明, 请参考<a href="start/./exceptions.html">异常</a>.</p>
 
                     </main>
 
