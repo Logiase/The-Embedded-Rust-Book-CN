@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>硬件 - 嵌入式Rust之书</title>
+        <title>外设 - 嵌入式Rust之书</title>
         
         
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html" class="active"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="../start/harware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../start/registers.html"><strong aria-hidden="true">2.3.</strong> 内存映射寄存器</a></li><li class="chapter-item expanded "><a href="../start/semihosting.html"><strong aria-hidden="true">2.4.</strong> Semihosting</a></li><li class="chapter-item expanded "><a href="../start/panicking.html"><strong aria-hidden="true">2.5.</strong> Panicking</a></li><li class="chapter-item expanded "><a href="../start/exception.html"><strong aria-hidden="true">2.6.</strong> 异常</a></li><li class="chapter-item expanded "><a href="../start/interrupts.html"><strong aria-hidden="true">2.7.</strong> 中断</a></li></ol></li><li class="chapter-item expanded "><a href="../peripherals/index.html"><strong aria-hidden="true">3.</strong> 外设</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="../start/harware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../start/registers.html"><strong aria-hidden="true">2.3.</strong> 内存映射寄存器</a></li><li class="chapter-item expanded "><a href="../start/semihosting.html"><strong aria-hidden="true">2.4.</strong> Semihosting</a></li><li class="chapter-item expanded "><a href="../start/panicking.html"><strong aria-hidden="true">2.5.</strong> Panicking</a></li><li class="chapter-item expanded "><a href="../start/exception.html"><strong aria-hidden="true">2.6.</strong> 异常</a></li><li class="chapter-item expanded "><a href="../start/interrupts.html"><strong aria-hidden="true">2.7.</strong> 中断</a></li></ol></li><li class="chapter-item expanded "><a href="../peripherals/index.html" class="active"><strong aria-hidden="true">3.</strong> 外设</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,46 +163,42 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#硬件" id="硬件">硬件</a></h1>
-<p>先让我们熟悉一下陪我们的开发板</p>
-<h2><a class="header" href="#stm32f3discovery-f3" id="stm32f3discovery-f3">STM32F3DISCOVERY (&quot;F3&quot;)</a></h2>
-<p align="center">
-<img title="F3" src="../assets/f3.jpg">
-</p>
-<p>这块板子上都有什么?</p>
+                        <h1><a class="header" href="#外设" id="外设">外设</a></h1>
+<h2><a class="header" href="#什么是外设" id="什么是外设">什么是外设?</a></h2>
+<p>很多微控制器不仅仅只有 CPU, RAM, 或 FLASH闪存 - 他们是用与微控制器之外的系统进行交互, 即通过传感器, 马达, 或者像是显示器或键盘这样的人机界面直接的或简洁的与周围交互. 这些部件就叫做外设.</p>
+<p>这些外设很有用, 因为他们能够让开发者把要干的事丢给它们, 这样就不用让软件来处理所有的事情.
+就像是桌面开发者把图像处理的部分丢给显卡一样, 嵌入式开发者能够把一些任务放在外围设备上, 这样就可以让CPU有时间去干更重要的事, 或者什么都不干来省电.</p>
+<p>如果你看一下上个世纪70年代到80年代的旧型号家用电脑(上个世代的电脑和微控制器没差多少), 你可以发现:</p>
 <ul>
-<li><a href="https://www.st.com/en/microcontrollers/stm32f303vc.html">STM32F303VCT6</a> mcu. 这块芯片有:
-<ul>
-<li>支持单精度浮点的单核ARM Cortex-M4F处理器</li>
-<li>256 KiB 闪存 (1 KiB = 10<strong>24</strong> bytes)</li>
-<li>48 KiB RAM</li>
-<li>很多集成外设, 如 计时器, I2C, SPI, USART</li>
-<li>通过标有&quot;USB USER&quot;的USB接口</li>
+<li>一个处理器</li>
+<li>一个 RAM 芯片</li>
+<li>一块 ROM 芯片</li>
+<li>一个 I/O 控制器</li>
 </ul>
-</li>
-<li>一个<a href="https://en.wikipedia.org/wiki/Accelerometer">加速度传感器</a> <a href="https://www.st.com/en/mems-and-sensors/lsm303dlhc.html">LSM303DLHC</a></li>
-<li>一个<a href="https://en.wikipedia.org/wiki/Magnetometer">磁强计</a> <a href="https://www.st.com/en/mems-and-sensors/lsm303dlhc.html">LSM303DLHC</a></li>
-<li>一个<a href="https://en.wikipedia.org/wiki/Gyroscope">陀螺仪</a> <a href="https://www.pololu.com/file/0J563/L3GD20.pdf">L3GD20</a></li>
-<li>8个呈指南针排列的LED</li>
-<li>第二个mcu <a href="https://www.st.com/en/microcontrollers/stm32f103cb.html">STM32F103</a>. 实际上是片上编程\调试器ST-LINK的一部分</li>
-</ul>
-<p>关于这块板子更进一步的详细信息, 请参阅<a href="https://www.st.com/en/evaluation-tools/stm32f3discovery.html">STMicroelectronics</a></p>
-<p>警告!: 如果你相对板子施加外部信号, 一定要小心! STM32F303VCT6引脚能承受的电压为3.3V. 更多有关信息, 请参阅用户手册中<a href="https://www.st.com/resource/en/datasheet/stm32f303vc.pdf">6.2 Absolute maximum ratings section in the manual</a></p>
+<p>RAM, ROM芯片还有I/O控制器(系统中的外设)会通过一系列并行接口,又叫做'总线'参与处理器的工作. 总线带有地址信息, 用来在总线上选择处理器想与那个外设通信. 在我们的嵌入式处理器中, 也是同样的规则 - 只不过是它们都被集成在了一块硅片上.</p>
+<h2><a class="header" href="#线性实际内存空间" id="线性实际内存空间">线性实际内存空间</a></h2>
+<p>在微控制器, 向某些地址写入数据, 如 <code>0x4000_0000</code> 或 <code>0x0000_0000</code> , 也会是一个完全有效的操作.</p>
+<p>在一个桌面系统上, 对内存的读取写入操作要经过 MMU, Memory Management Unit. 它有两个主要功能: 限制对内存的访问(防止一个进程读取或者修改另一个程序的内存); 并且将物理内存重新映射到虚拟内存中. 微控制器一般没有 MMU , 作为代替它们在软件中使用真实的内存地址.</p>
+<p>尽管32位微控制器有一个实际的线性内存地址, 起始 <code>0x0000_0000</code> 至 <code>0xFFFF_FFFF</code>, 它们通常只使用该范围内的几百KB作为实际内存. 留下了很多内存空间. 在前面的章节中, 我们说过 RAM 位于地址 <code>0x2000_0000</code>. 如果我们的 RAM 有64KB 大小(最大地址0xFFFF), 那实际内存空间就是从 <code>0x2000_0000</code> 到 <code>0x2000_FFFF</code>. 当我们向 <code>0x2000_1234</code> 写入时, 实际上内部发生的是一些逻辑检测到我们用到地址的上半部分(这里是 0x2000 ), 然后激活RAM, 以便寻找下半部分地址(这里是 0x1234 ). 在 Cortex-M 上, 我们将ROM映射到 <code>0x0000_0000</code> 上, 假设你有 512KB ROM, 那就是从 <code>0x0000_0000</code> 到 <code>0x0007_FFFF</code>. 微控制器的设计人员没有忽略这两部分之间的剩余地址, 而是在他们上面映射了外设的接口. 最后看起来像这样:</p>
+<p><img src="../assets/nrf52-memory-map.png" alt="nrf52-memory-map" /></p>
+<p><a href="http://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.1.pdf">Nordic nRF52832 Datasheet (pdf)</a></p>
+<h2><a class="header" href="#内存映射外设" id="内存映射外设">内存映射外设</a></h2>
+<p>乍一看, 与外设的交互十分简单, 将正确的数据写入到正确的内存地址上. 例如, 通过串口发送32位的数据就和直接向一个地址写入32位数据一样简单, 串口就会自动读取然后发送数据.</p>
+<p>配置这些外设的工作都很相似. 不是调用用于配置它们的函数, 而是直接公开一块内存用于硬件API. 将 <code>0x8000_0000</code> 写入配置寄存器, SPI端口便会以 8Mb/s 的速度发送数据. 将 <code>0x2000_0000</code> 写入相同地址, SPI就会以 125kb/s 的速度发送数据. 这些配置寄存器看起来和这个一样:</p>
+<p><img src="../assets/nrf52-spi-frequency-register.png" alt="nrf52-spi-frequency-register" /></p>
+<p><a href="http://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.1.pdf">Nordic nRF52832 Datasheet (pdf)</a></p>
+<p>无论使用哪种语言, C, 汇编还是Rust, 都是像这样直接与硬件交互.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../intro/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../start/interrupts.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
-                        
-                            <a rel="next" href="../intro/no-std.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -212,15 +208,11 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../intro/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../start/interrupts.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
-                
-                    <a rel="next" href="../intro/no-std.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             </nav>
 
