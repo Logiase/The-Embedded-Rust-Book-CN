@@ -18,3 +18,6 @@
   - [异常](./start/exception.md)
   - [中断](./start/interrupts.md)
 - [外设](./peripherals/index.md)
+  - [Rust的第一次尝试](./peripherals/a-first-attempt.md)
+  - [The Borrow Checker](./peripherals/borrowck.md)
+  - [Singletons](./peripherals/singletons.md)
