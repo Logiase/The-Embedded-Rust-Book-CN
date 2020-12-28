@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="start/harware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="start/registers.html"><strong aria-hidden="true">2.3.</strong> 内存映射寄存器</a></li><li class="chapter-item expanded "><a href="start/semihosting.html"><strong aria-hidden="true">2.4.</strong> Semihosting</a></li><li class="chapter-item expanded "><a href="start/panicking.html"><strong aria-hidden="true">2.5.</strong> Panicking</a></li><li class="chapter-item expanded "><a href="start/exception.html"><strong aria-hidden="true">2.6.</strong> 异常</a></li><li class="chapter-item expanded "><a href="start/interrupts.html"><strong aria-hidden="true">2.7.</strong> 中断</a></li></ol></li><li class="chapter-item expanded "><a href="peripherals/index.html"><strong aria-hidden="true">3.</strong> 外设</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="start/harware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="start/registers.html"><strong aria-hidden="true">2.3.</strong> 内存映射寄存器</a></li><li class="chapter-item expanded "><a href="start/semihosting.html"><strong aria-hidden="true">2.4.</strong> Semihosting</a></li><li class="chapter-item expanded "><a href="start/panicking.html"><strong aria-hidden="true">2.5.</strong> Panicking</a></li><li class="chapter-item expanded "><a href="start/exception.html"><strong aria-hidden="true">2.6.</strong> 异常</a></li><li class="chapter-item expanded "><a href="start/interrupts.html"><strong aria-hidden="true">2.7.</strong> 中断</a></li></ol></li><li class="chapter-item expanded "><a href="peripherals/index.html"><strong aria-hidden="true">3.</strong> 外设</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="peripherals/a-first-attempt.html"><strong aria-hidden="true">3.1.</strong> Rust的第一次尝试</a></li><li class="chapter-item expanded "><a href="peripherals/borrowck.html"><strong aria-hidden="true">3.2.</strong> 引用检查</a></li><li class="chapter-item expanded "><a href="peripherals/singletons.html"><strong aria-hidden="true">3.3.</strong> 单例</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -1687,6 +1687,276 @@ fn TIM2() {
 <p><img src="peripherals/../assets/nrf52-spi-frequency-register.png" alt="nrf52-spi-frequency-register" /></p>
 <p><a href="http://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.1.pdf">Nordic nRF52832 Datasheet (pdf)</a></p>
 <p>无论使用哪种语言, C, 汇编还是Rust, 都是像这样直接与硬件交互.</p>
+<h1><a class="header" href="#第一次尝试" id="第一次尝试">第一次尝试</a></h1>
+<h2><a class="header" href="#寄存器" id="寄存器">寄存器</a></h2>
+<p>我们来看看 <code>SysTick</code> 这个外设-每个 Cortex-M 处理器内核都有的简单计时器. 通常情况下, 你可以在芯片制造商的<em>数据手册</em>中找到这些信息, 但是此示例对于所有的 Arm Cortex-M 内核都是通用的, 让我们在<a href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0553a/Babieigh.html">ARM参考手册</a>中进行查找. 我们看到有四个寄存器:</p>
+<table><thead><tr><th>Offset</th><th>Name</th><th>Description</th><th>Width</th></tr></thead><tbody>
+<tr><td>0x00</td><td>SYST_CSR</td><td>Control and Status Register</td><td>32 bits</td></tr>
+<tr><td>0x04</td><td>SYST_RVR</td><td>Reload Value Register</td><td>32 bits</td></tr>
+<tr><td>0x08</td><td>SYST_CVR</td><td>Current Value Register</td><td>32 bits</td></tr>
+<tr><td>0x0C</td><td>SYST_CALIB</td><td>Calibration Value Register</td><td>32 bits</td></tr>
+</tbody></table>
+<h2><a class="header" href="#c怎么做" id="c怎么做">C怎么做</a></h2>
+<p>在Rust中, 我们可以使用与 C 完全相同的方式来表示寄存器的合集-使用 <code>struct</code> .</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[repr(C)]
+struct SysTick {
+    pub csr: u32,
+    pub rvr: u32,
+    pub cvr: u32,
+    pub calib: u32,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>限定符 <code>#[repr(C)]</code> 告诉 Rust 编译器像 C 一样对这个 struct 布局. 这非常重要, 因为 Rust 会对 struct 的字段进行重新排序, 而 C 不会. 你可以想象一下, 如果 Rust 对其进行了重新排序, 我们进行调试找 BUG 会多难! 使用这个限定符之后, 我们就有四个32位字段, 它们与上表相对应. 但是, 当然仅有这个 <code>struct</code> 是不够的, 我们还需要一个变量.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let systick = 0xE000_E010 as *mut SysTick;
+let time = unsafe { (*systick).cvr };
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#有序访问" id="有序访问">有序访问</a></h2>
+<p>现在, 我们碰到了一堆问题.</p>
+<ol>
+<li>我们需要用到 unsafe 来访问我们的外设.</li>
+<li>我们没有办法确定那个寄存器是只读的或可读可写的.</li>
+<li>代码中的任何部分都可以通过这个结构来访问硬件.</li>
+<li>最重要的, 现在它还不能用...</li>
+</ol>
+<p>现在的问题是编译器很聪明. 如果你向同一块内存做两次写入, 一前一后, 编译器会注意到这个操作, 然后优化掉第一次写入. 在 C 中, 我们可以把这个变量标记为 <code>volatile</code> 来确保每次读写操作都会准确发生. 在 Rust 中, 我们将 <em>指针</em> 标记为 volatile, 而不是变量.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let systick = unsafe { &amp;mut *(0xE000_E010 as *mut SysTick) };
+let time = unsafe { core::ptr::read_volatile(&amp;mut systick.cvr) };
+<span class="boring">}
+</span></code></pre></pre>
+<p>所以, 我们修复了上面四个问题之一, 但是我们却写出了更 <code>unsafe</code> 的代码! 幸运的是, 这由第三方的库能帮我们 - <a href="https://crates.io/crates/volatile_register"><code>volatile_register</code></a>.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use volatile_register::{RW, RO};
+
+#[repr(C)]
+struct SysTick {
+    pub csr: RW&lt;u32&gt;,
+    pub rvr: RW&lt;u32&gt;,
+    pub cvr: RW&lt;u32&gt;,
+    pub calib: RO&lt;u32&gt;,
+}
+
+fn get_systick() -&gt; &amp;'static mut SysTick {
+    unsafe { &amp;mut *(0xE000_E010 as *mut SysTick) }
+}
+
+fn get_time() -&gt; u32 {
+    let systick = get_systick();
+    systick.cvr.read()
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>现在, 读取写入都通过 <code>read</code> 和 <code>write</code> 安排妥当了. 虽然写入还是 <code>unsafe</code> , 不过现在, 硬件现在是一堆可变的状态, 编译器没法知道这些操作是不是安全的, 所以这是一个不错的默认位置.</p>
+<h2><a class="header" href="#rust风格的外壳" id="rust风格的外壳">Rust风格的外壳</a></h2>
+<p>我们需要用一个更高级的 API 来封装一下这个 <code>struct</code> 来让能让我们安全使用. 作为驱动作者, 我们人工确定 <code>unsafe</code> 代码是否正确, 然后给我们的用户提供一个 <code>safe</code> 的 API来让我们的用户不去担心这些.</p>
+<p>一个栗子:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use volatile_register::{RW, RO};
+
+pub struct SystemTimer {
+    p: &amp;'static mut RegisterBlock
+}
+
+#[repr(C)]
+struct RegisterBlock {
+    pub csr: RW&lt;u32&gt;,
+    pub rvr: RW&lt;u32&gt;,
+    pub cvr: RW&lt;u32&gt;,
+    pub calib: RO&lt;u32&gt;,
+}
+
+impl SystemTimer {
+    pub fn new() -&gt; SystemTimer {
+        SystemTimer {
+            p: unsafe { &amp;mut *(0xE000_E010 as *mut RegisterBlock) }
+        }
+    }
+
+    pub fn get_time(&amp;self) -&gt; u32 {
+        self.p.cvr.read()
+    }
+
+    pub fn set_reload(&amp;mut self, reload_value: u32) {
+        unsafe { self.p.rvr.write(reload_value) }
+    }
+}
+
+pub fn example_usage() -&gt; String {
+    let mut st = SystemTimer::new();
+    st.set_reload(0x00FF_FFFF);
+    format!(&quot;Time is now 0x{:08x}&quot;, st.get_time())
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>现在的问题是, 如下这样的代码是被编译器完完全全接受的:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn thread1() {
+    let mut st = SystemTimer::new();
+    st.set_reload(2000);
+}
+
+fn thread2() {
+    let mut st = SystemTimer::new();
+    st.set_reload(1000);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>我们对 <code>set_reload</code> 函数的 <code>&amp;mut self</code> 参数可以确保没有其他对<em>这个</em>特定的 <code>SystemTimer</code> 的引用, 但是它们并不阻止用户创建第二个指向同一个外设的变量! 如果作者很努力的发现所有这样&quot;重复&quot;的却动, 那这样的写法会有作用, 但是一旦代码分散到多个模块, 驱动, 开发者之中, 那出现错误会越来越容易.</p>
+<h2><a class="header" href="#可变全局状态" id="可变全局状态">可变全局状态</a></h2>
+<p>很不幸, 硬件基本是就是可变的全局状态, 这对于 Rust 开发者来说非常恐怖. 硬件独立于我们写的代码而存在, 并且可以随时被现实世界改变状态.</p>
+<h2><a class="header" href="#我们的规则" id="我们的规则">我们的规则?</a></h2>
+<p>我们如何和这些外设进行可靠的交互?</p>
+<ol>
+<li>始终使用 <code>volatile</code> 方法读取或写入外设内存, 因为它随时可能发生变化</li>
+<li>在软件中, 我们应该只共享这些外设的不可变引用</li>
+<li>如果某些软件需要对外设进行读写, 则应该保留对该外设的唯一引用</li>
+</ol>
+<h2><a class="header" href="#引用检查器" id="引用检查器">引用检查器</a></h2>
+<p>这些规则的最后两条听起来很想引用检查器已经在做的事情!</p>
+<p>想象一下我们是否可以放弃对这些外设的所有权, 或者只是用可变或者不可变的引用?</p>
+<p>好吧, 我们可以, 但是对于引用检查器, 我们需要每个外设都存在一个唯一实例, 来让 Rust 正确处理引用检查. 幸运的是, 在硬件中任何外设都只有一个实例, 但是如何在代码中展示出来呢?</p>
+<h1><a class="header" href="#单例" id="单例">单例</a></h1>
+<blockquote>
+<p>在软件工程中, 单例模式是一种限制一个类只能存在一种的设计模式</p>
+<p><em>Wikipedia: <a href="https://en.wikipedia.org/wiki/Singleton_pattern">Singleton Pattern</a></em></p>
+</blockquote>
+<h2><a class="header" href="#但是我们为什么直接用全局变量" id="但是我们为什么直接用全局变量">但是我们为什么直接用全局变量?</a></h2>
+<p>我们可以把任何都设成一个全局变量, 像这样:</p>
+<pre><pre class="playground"><code class="language-rust">static mut THE_SERIAL_PORT: SerialPort = SerialPort;
+
+fn main() {
+    let _ = unsafe {
+        THE_SERIAL_PORT.read_speed();
+    };
+}
+</code></pre></pre>
+<p>但是这有一些问题. 在 Rust 中, 与全局变量交互是 <code>unsafe</code> 的. 这些变量始终对你的程序可见, 这意味这引用检查器不能帮你追踪引用与所有权.</p>
+<h2><a class="header" href="#我们在-rust-中怎么做" id="我们在-rust-中怎么做">我们在 Rust 中怎么做?</a></h2>
+<p>代替将外设做为全局变量, 我们决定创建一个叫做 <code>PERIPHERALS</code> 的全局变量, 它包含我们每个外设的可空引用 <code>Option&lt;T&gt;</code>.</p>
+<pre><code class="language-rust ignore">struct Peripherals {
+    serial: Option&lt;SerialPort&gt;,
+}
+impl Peripherals {
+    fn take_serial(&amp;mut self) -&gt; SerialPort {
+        let p = replace(&amp;mut self.serial, None);
+        p.unwrap()
+    }
+}
+static mut PERIPHERALS: Peripherals = Peripherals {
+    serial: Some(SerialPort),
+};
+</code></pre>
+<p>这个结构允许我们获取每个外设的单一实例. 如果我们多次使用 <code>take_serail()</code> , 我们的程序就会 panic !</p>
+<pre><code class="language-rust ignore">fn main() {
+    let serial_1 = unsafe { PERIPHERALS.take_serial() };
+    // This panics!
+    // let serial_2 = unsafe { PERIPHERALS.take_serial() };
+}
+</code></pre>
+<p>尽管这么交互还是 <code>unsafe</code> , 但是我们一旦拿到它持有的 <code>SerialPort</code> , 我们就不需要在使用 <code>unsafe</code> 或者 <code>PERIPHERALS</code> 了.</p>
+<p>这有很小的运行时开销, 因为我们必须将 <code>SerialPort</code> 包装在一个 <code>Option&lt;T&gt;</code> 中, 并且需要调用一次 <code>take_serial()</code>, 但是, 这一点点成本能够让我们在剩余所有过程中使用引用检查器来检查我们的程序.</p>
+<h2><a class="header" href="#已有的库支持" id="已有的库支持">已有的库支持</a></h2>
+<p>尽管我们在前面创建了我们自己的 <code>Peripherals</code> , 但是你没必要再自己的代码中这么些, <code>cortex-m</code> 库中包含了一个叫 <code>singleton!()</code> 的宏, 它会帮你.</p>
+<pre><pre class="playground"><code class="language-rust">#[macro_use(singleton)]
+extern crate cortex_m;
+
+fn main() {
+    // OK if `main` is executed only once
+    let x: &amp;'static mut bool =
+        singleton!(: bool = false).unwrap();
+}
+</code></pre></pre>
+<p><a href="https://docs.rs/cortex-m/latest/cortex_m/macro.singleton.html">cortex_m docs</a></p>
+<p>另外, 如果你使用<a href="https://github.com/rtic-rs/cortex-m-rtic"><code>cortex-m-rtic</code></a>, 那它会帮你抽象这个定义和获取外围设备的步骤, 直接给你外设, 而不是你定义的 <code>Option&lt;T&gt;</code>.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// cortex-m-rtic v0.5.x
+#[rtic::app(device = lm3s6965, peripherals = true)]
+const APP: () = {
+    #[init]
+    fn init(cx: init::Context) {
+        static mut X: u32 = 0;
+         
+        // Cortex-M peripherals
+        let core: cortex_m::Peripherals = cx.core;
+        
+        // Device specific peripherals
+        let device: lm3s6965::Peripherals = cx.device;
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#但是为什么" id="但是为什么">但是为什么?</a></h2>
+<p>但是这些单例如何在我们的代码中产生明显的不同?</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl SerialPort {
+    const SER_PORT_SPEED_REG: *mut u32 = 0x4000_1000 as _;
+
+    fn read_speed(
+        &amp;self // &lt;------ This is really, really important
+    ) -&gt; u32 {
+        unsafe {
+            ptr::read_volatile(Self::SER_PORT_SPEED_REG)
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>这有两个重要因素:</p>
+<ul>
+<li>因为哦我们在使用单例, 所以我们只有一种方法来获取一个 <code>SerialPort</code></li>
+<li>为了使用 <code>read_speed()</code> 函数, 我们必须有 <code>SerialPort</code>的所有权或他的引用</li>
+</ul>
+<p>这两个因素加在一起意味着我们只有在满足条件的情况下才能访问硬件, 意味着我们在任何时候都不能对同一硬件有多个可变引用!</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    // missing reference to `self`! Won't work.
+    // SerialPort::read_speed();
+
+    let serial_1 = unsafe { PERIPHERALS.take_serial() };
+
+    // you can only read what you have access to
+    let _ = serial_1.read_speed();
+}
+</code></pre></pre>
+<h2><a class="header" href="#把你的硬件看成数据" id="把你的硬件看成数据">把你的硬件看成数据</a></h2>
+<p>另外, 由于某些引用是可变的, 有些是不可变的, 因此可以查看某个函数或方法时候有潜在的可能修改硬件的状态. 例如:</p>
+<p>这允许修改硬件设置:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn setup_spi_port(
+    spi: &amp;mut SpiPort,
+    cs_pin: &amp;mut GpioPin
+) -&gt; Result&lt;()&gt; {
+    // ...
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>这不允许:</p>
+<pre><code class="language-rust ignore">fn read_button(gpio: &amp;GpioPin) -&gt; bool {
+    // ...
+}
+</code></pre>
+<p>者能够让我们在<strong>编译时</strong>(而不是运行时)确定代码是否能够修改硬件状态. 需要注意的是, 这通常仅仅在一个应用中可行, 但是对于裸金属系统, 我们的代码通常只会编译为一个应用, 所以不受限制.</p>
 
                     </main>
 

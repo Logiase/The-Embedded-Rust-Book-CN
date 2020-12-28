@@ -1,0 +1,352 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>单例 - 嵌入式Rust之书</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html"><strong aria-hidden="true">1.4.</strong> 安装</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 验证安装</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../start/index.html"><strong aria-hidden="true">2.</strong> 开始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="../start/harware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../start/registers.html"><strong aria-hidden="true">2.3.</strong> 内存映射寄存器</a></li><li class="chapter-item expanded "><a href="../start/semihosting.html"><strong aria-hidden="true">2.4.</strong> Semihosting</a></li><li class="chapter-item expanded "><a href="../start/panicking.html"><strong aria-hidden="true">2.5.</strong> Panicking</a></li><li class="chapter-item expanded "><a href="../start/exception.html"><strong aria-hidden="true">2.6.</strong> 异常</a></li><li class="chapter-item expanded "><a href="../start/interrupts.html"><strong aria-hidden="true">2.7.</strong> 中断</a></li></ol></li><li class="chapter-item expanded "><a href="../peripherals/index.html"><strong aria-hidden="true">3.</strong> 外设</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../peripherals/a-first-attempt.html"><strong aria-hidden="true">3.1.</strong> Rust的第一次尝试</a></li><li class="chapter-item expanded "><a href="../peripherals/borrowck.html"><strong aria-hidden="true">3.2.</strong> 引用检查</a></li><li class="chapter-item expanded "><a href="../peripherals/singletons.html" class="active"><strong aria-hidden="true">3.3.</strong> 单例</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">嵌入式Rust之书</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#单例" id="单例">单例</a></h1>
+<blockquote>
+<p>在软件工程中, 单例模式是一种限制一个类只能存在一种的设计模式</p>
+<p><em>Wikipedia: <a href="https://en.wikipedia.org/wiki/Singleton_pattern">Singleton Pattern</a></em></p>
+</blockquote>
+<h2><a class="header" href="#但是我们为什么直接用全局变量" id="但是我们为什么直接用全局变量">但是我们为什么直接用全局变量?</a></h2>
+<p>我们可以把任何都设成一个全局变量, 像这样:</p>
+<pre><pre class="playground"><code class="language-rust">static mut THE_SERIAL_PORT: SerialPort = SerialPort;
+
+fn main() {
+    let _ = unsafe {
+        THE_SERIAL_PORT.read_speed();
+    };
+}
+</code></pre></pre>
+<p>但是这有一些问题. 在 Rust 中, 与全局变量交互是 <code>unsafe</code> 的. 这些变量始终对你的程序可见, 这意味这引用检查器不能帮你追踪引用与所有权.</p>
+<h2><a class="header" href="#我们在-rust-中怎么做" id="我们在-rust-中怎么做">我们在 Rust 中怎么做?</a></h2>
+<p>代替将外设做为全局变量, 我们决定创建一个叫做 <code>PERIPHERALS</code> 的全局变量, 它包含我们每个外设的可空引用 <code>Option&lt;T&gt;</code>.</p>
+<pre><code class="language-rust ignore">struct Peripherals {
+    serial: Option&lt;SerialPort&gt;,
+}
+impl Peripherals {
+    fn take_serial(&amp;mut self) -&gt; SerialPort {
+        let p = replace(&amp;mut self.serial, None);
+        p.unwrap()
+    }
+}
+static mut PERIPHERALS: Peripherals = Peripherals {
+    serial: Some(SerialPort),
+};
+</code></pre>
+<p>这个结构允许我们获取每个外设的单一实例. 如果我们多次使用 <code>take_serail()</code> , 我们的程序就会 panic !</p>
+<pre><code class="language-rust ignore">fn main() {
+    let serial_1 = unsafe { PERIPHERALS.take_serial() };
+    // This panics!
+    // let serial_2 = unsafe { PERIPHERALS.take_serial() };
+}
+</code></pre>
+<p>尽管这么交互还是 <code>unsafe</code> , 但是我们一旦拿到它持有的 <code>SerialPort</code> , 我们就不需要在使用 <code>unsafe</code> 或者 <code>PERIPHERALS</code> 了.</p>
+<p>这有很小的运行时开销, 因为我们必须将 <code>SerialPort</code> 包装在一个 <code>Option&lt;T&gt;</code> 中, 并且需要调用一次 <code>take_serial()</code>, 但是, 这一点点成本能够让我们在剩余所有过程中使用引用检查器来检查我们的程序.</p>
+<h2><a class="header" href="#已有的库支持" id="已有的库支持">已有的库支持</a></h2>
+<p>尽管我们在前面创建了我们自己的 <code>Peripherals</code> , 但是你没必要再自己的代码中这么些, <code>cortex-m</code> 库中包含了一个叫 <code>singleton!()</code> 的宏, 它会帮你.</p>
+<pre><pre class="playground"><code class="language-rust">#[macro_use(singleton)]
+extern crate cortex_m;
+
+fn main() {
+    // OK if `main` is executed only once
+    let x: &amp;'static mut bool =
+        singleton!(: bool = false).unwrap();
+}
+</code></pre></pre>
+<p><a href="https://docs.rs/cortex-m/latest/cortex_m/macro.singleton.html">cortex_m docs</a></p>
+<p>另外, 如果你使用<a href="https://github.com/rtic-rs/cortex-m-rtic"><code>cortex-m-rtic</code></a>, 那它会帮你抽象这个定义和获取外围设备的步骤, 直接给你外设, 而不是你定义的 <code>Option&lt;T&gt;</code>.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// cortex-m-rtic v0.5.x
+#[rtic::app(device = lm3s6965, peripherals = true)]
+const APP: () = {
+    #[init]
+    fn init(cx: init::Context) {
+        static mut X: u32 = 0;
+         
+        // Cortex-M peripherals
+        let core: cortex_m::Peripherals = cx.core;
+        
+        // Device specific peripherals
+        let device: lm3s6965::Peripherals = cx.device;
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#但是为什么" id="但是为什么">但是为什么?</a></h2>
+<p>但是这些单例如何在我们的代码中产生明显的不同?</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl SerialPort {
+    const SER_PORT_SPEED_REG: *mut u32 = 0x4000_1000 as _;
+
+    fn read_speed(
+        &amp;self // &lt;------ This is really, really important
+    ) -&gt; u32 {
+        unsafe {
+            ptr::read_volatile(Self::SER_PORT_SPEED_REG)
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>这有两个重要因素:</p>
+<ul>
+<li>因为哦我们在使用单例, 所以我们只有一种方法来获取一个 <code>SerialPort</code></li>
+<li>为了使用 <code>read_speed()</code> 函数, 我们必须有 <code>SerialPort</code>的所有权或他的引用</li>
+</ul>
+<p>这两个因素加在一起意味着我们只有在满足条件的情况下才能访问硬件, 意味着我们在任何时候都不能对同一硬件有多个可变引用!</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    // missing reference to `self`! Won't work.
+    // SerialPort::read_speed();
+
+    let serial_1 = unsafe { PERIPHERALS.take_serial() };
+
+    // you can only read what you have access to
+    let _ = serial_1.read_speed();
+}
+</code></pre></pre>
+<h2><a class="header" href="#把你的硬件看成数据" id="把你的硬件看成数据">把你的硬件看成数据</a></h2>
+<p>另外, 由于某些引用是可变的, 有些是不可变的, 因此可以查看某个函数或方法时候有潜在的可能修改硬件的状态. 例如:</p>
+<p>这允许修改硬件设置:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn setup_spi_port(
+    spi: &amp;mut SpiPort,
+    cs_pin: &amp;mut GpioPin
+) -&gt; Result&lt;()&gt; {
+    // ...
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>这不允许:</p>
+<pre><code class="language-rust ignore">fn read_button(gpio: &amp;GpioPin) -&gt; bool {
+    // ...
+}
+</code></pre>
+<p>者能够让我们在<strong>编译时</strong>(而不是运行时)确定代码是否能够修改硬件状态. 需要注意的是, 这通常仅仅在一个应用中可行, 但是对于裸金属系统, 我们的代码通常只会编译为一个应用, 所以不受限制.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../peripherals/borrowck.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../peripherals/borrowck.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
