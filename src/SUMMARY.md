@@ -23,7 +23,7 @@
   - [单例](./peripherals/singletons.md)
 - [静态检查](./static-guarantees/index.md)
   - [状态机编程](./static-guarantees/typestate-programming.md)
-  - [Peripherals as State Machines](./static-guarantees/state-machines.md)
+  - [外设状态机](./static-guarantees/state-machines.md)
   - [Design Contracts](./static-guarantees/design-contracts.md)
   - [Zero Cost Abstractions](./static-guarantees/zero-cost-abstractions.md)
 - [Portability](./portability/index.md)
