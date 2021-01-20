@@ -25,7 +25,7 @@
   - [状态机编程](./static-guarantees/typestate-programming.md)
   - [外设状态机](./static-guarantees/state-machines.md)
   - [设计合同](./static-guarantees/design-contracts.md)
-  - [Zero Cost Abstractions](./static-guarantees/zero-cost-abstractions.md)
+  - [零成本抽象](./static-guarantees/zero-cost-abstractions.md)
 - [Portability](./portability/index.md)
 - [Concurrency](./concurrency/index.md)
 - [Collections](./collections/index.md)
