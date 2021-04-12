@@ -26,7 +26,7 @@
   - [外设状态机](./static-guarantees/state-machines.md)
   - [设计合同](./static-guarantees/design-contracts.md)
   - [零成本抽象](./static-guarantees/zero-cost-abstractions.md)
-- [Portability](./portability/index.md)
+- [可移植性](./portability/index.md)
 - [Concurrency](./concurrency/index.md)
 - [Collections](./collections/index.md)
 - [Design Patterns](./design-patterns/index.md)
