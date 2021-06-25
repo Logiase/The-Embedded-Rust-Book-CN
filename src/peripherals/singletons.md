@@ -51,7 +51,7 @@ fn main() {
 }
 ```
 
-尽管这么交互还是 `unsafe` , 但是我们一旦拿到它持有的 `SerialPort` , 我们就不需要在使用 `unsafe` 或者 `PERIPHERALS` 了.
+尽管这么交互还是 `unsafe` , 但是我们一旦拿到它持有的 `SerialPort` , 我们就不需要再使用 `unsafe` 或者 `PERIPHERALS` 了.
 
 这有很小的运行时开销, 因为我们必须将 `SerialPort` 包装在一个 `Option<T>` 中, 并且需要调用一次 `take_serial()`, 但是, 这一点点成本能够让我们在剩余所有过程中使用引用检查器来检查我们的程序.
 
