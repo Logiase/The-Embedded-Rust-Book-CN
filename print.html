@@ -1902,7 +1902,7 @@ const APP: () = {
 </span></code></pre></pre>
 <p>这有两个重要因素:</p>
 <ul>
-<li>因为哦我们在使用单例, 所以我们只有一种方法来获取一个 <code>SerialPort</code></li>
+<li>因为我们在使用单例, 所以我们只有一种方法来获取一个 <code>SerialPort</code></li>
 <li>为了使用 <code>read_speed()</code> 函数, 我们必须有 <code>SerialPort</code>的所有权或他的引用</li>
 </ul>
 <p>这两个因素加在一起意味着我们只有在满足条件的情况下才能访问硬件, 意味着我们在任何时候都不能对同一硬件有多个可变引用!</p>
@@ -1935,7 +1935,7 @@ const APP: () = {
     // ...
 }
 </code></pre>
-<p>者能够让我们在<strong>编译时</strong>(而不是运行时)确定代码是否能够修改硬件状态. 需要注意的是, 这通常仅仅在一个应用中可行, 但是对于裸金属系统, 我们的代码通常只会编译为一个应用, 所以不受限制.</p>
+<p>这能够让我们在<strong>编译时</strong>(而不是运行时)确定代码是否能够修改硬件状态. 需要注意的是, 这通常仅仅在一个应用中可行, 但是对于裸金属系统, 我们的代码通常只会编译为一个应用, 所以不受限制.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="静态保证"><a class="header" href="#静态保证">静态保证</a></h1>
 <p>Rust 的类型系统可以防止在编译时发生数据竞争(参考<a href="https://doc.rust-lang.org/core/marker/trait.Send.html"><code>Send</code></a>和<a href="https://doc.rust-lang.org/core/marker/trait.Sync.html"><code>Sync</code></a> traits). 类型系统还可以用来检查编译时的其他属性; 减少了对运行时检查的需求.</p>
 <p>当应用于嵌入式程序时, 可以使用下面这些<em>静态检查</em>, 例如, 强制完成I/O的正确配置. 例如, 可以设计一种API, 在该API中只能先配置该就扣用到的引脚来初始化串口.</p>
